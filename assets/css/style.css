@@ -1,0 +1,128 @@
+/* variations */
+:root {
+    --light: white;
+    --light2: lightgray;
+    --dark: black;
+    --dark2: lightgray;
+    --accent: steelblue;
+    --accent2: rgba(70, 131, 180, 0.5);
+}
+
+/* page styles */
+::placeholder {
+    color: var(--light2);
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    color: var(--light);
+    padding: 30px;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 30px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+/* search panel styles */
+#citySelect {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+input:focus {
+    outline: none;
+}
+
+#citySearch input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+#searchInput {
+    border: 0.5px solid var(--dark);
+}
+
+#searchButton {
+    background-color: var(--accent);
+    color: var(--light);
+    border: none;
+}
+
+#searchButton:hover {
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--light2);
+    border: 0.5px solid var(--dark);
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+#searchHistory {
+    border-top: 1px solid var(--dark);
+    margin-top: 15px;
+}
+
+/* weather dashboard styles */
+#weatherReport {
+    margin-left: 15px;
+    height: 100vh;
+    width: 70%;
+}
+
+#today {
+    border: 1px solid var(--dark);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+#today h2 {
+    text-transform: capitalize;
+}
+
+#today p {
+    margin-top: 15px;
+}
+
+#forecast {
+    margin: 15px 0px;
+}
+
+#cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dayCard {
+    margin-top: 15px;
+    background-color: var(--accent);
+    color: var(--light);
+    padding: 15px;
+    width: 18%;
+}
+
+.dayCard p {
+    margin-top: 15px;
+}
