@@ -22,7 +22,7 @@ function getWeather() {
     var apiKey = '4cbbd8edff2f69559a34c2c07e801771';
 
     // today's weather
-    var queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
     fetch(queryURL)
     .then(function(response) {
@@ -37,7 +37,7 @@ function getWeather() {
         var uv = data.main.temp;
         var iconCode = data.weather[0].icon;
         var description = data.weather[0].description;
-        var iconURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         headline.children('#city').text(city);
         headline.children('#currentDate').text(moment().format('dddd, MMM Do'));
@@ -51,7 +51,7 @@ function getWeather() {
     });
 
     // 5-day forecast
-    var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
+    var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
 
     fetch(queryURL)
     .then(function(response) {
@@ -66,7 +66,7 @@ function getWeather() {
         var humidity = data.list[0].main.humidity;
         var iconCode = data.list[0].weather[0].icon;
         var description = data.list[0].weather[0].description;
-        var iconURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         day1.children('.description').text(description);
         day1.children('img').attr({'src': iconURL, 'alt': description});
@@ -81,7 +81,7 @@ function getWeather() {
         var humidity = data.list[1].main.humidity;
         var iconCode = data.list[1].weather[0].icon;
         var description = data.list[1].weather[0].description;
-        var iconURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         day2.children('.description').text(description);
         day2.children('img').attr({'src': iconURL, 'alt': description});
@@ -97,7 +97,7 @@ function getWeather() {
         var humidity = data.list[2].main.humidity;
         var iconCode = data.list[2].weather[0].icon;
         var description = data.list[2].weather[0].description;
-        var iconURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         day3.children('.description').text(description);
         day3.children('img').attr({'src': iconURL, 'alt': description});
@@ -113,7 +113,7 @@ function getWeather() {
         var humidity = data.list[3].main.humidity;
         var iconCode = data.list[3].weather[0].icon;
         var description = data.list[3].weather[0].description;
-        var iconURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         day4.children('.description').text(description);
         day4.children('img').attr({'src': iconURL, 'alt': description});
@@ -129,7 +129,7 @@ function getWeather() {
         var humidity = data.list[4].main.humidity;
         var iconCode = data.list[4].weather[0].icon;
         var description = data.list[4].weather[0].description;
-        var iconURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         day5.children('.description').text(description);
         day5.children('img').attr({'src': iconURL, 'alt': description});
