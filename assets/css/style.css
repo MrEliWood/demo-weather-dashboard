@@ -3,10 +3,16 @@
     --light: white;
     --light2: lightgray;
     --dark: black;
-    --dark2: lightgray;
+    --dark2: rgb(190, 190, 190);
     --accent: steelblue;
     --accent2: rgba(70, 131, 180, 0.5);
 }
+
+/* fade in animation */
+@keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
 
 /* page styles */
 ::placeholder {
@@ -27,6 +33,8 @@ header {
     color: var(--light);
     padding: 30px;
     width: 100%;
+    animation-name: fade;
+    animation-duration: 2s;
 }
 
 main {
@@ -35,7 +43,11 @@ main {
     justify-content: center;
     padding: 30px;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1500px;
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 0.25s;
+    animation-fill-mode: backwards;
 }
 
 /* search panel styles */
@@ -67,23 +79,28 @@ input:focus {
 }
 
 #searchButton:hover {
+    background-color: var(--accent2);
     cursor: pointer;
 }
 
 button {
-    background-color: var(--light2);
+    background-color: var(--dark2);
     border: none;
     width: 100%;
     padding: 10px;
     margin-top: 15px;
     border-radius: 5px;
+    text-transform: capitalize;
 }
 
 button:hover {
+    background-color: var(--light2);
     cursor: pointer;
 }
 
 #searchHistory {
+    display: flex;
+    flex-direction: column-reverse;
     border-top: 1px solid var(--dark);
     margin-top: 15px;
 }
@@ -149,4 +166,91 @@ button:hover {
 
 .dayCard p {
     margin-top: 15px;
+}
+
+/* tablets */
+@media screen and (max-width: 1350px) {
+
+    main {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: start;
+        max-width: none;
+        width: 100%;
+        padding: 30px;
+    }
+
+    #citySelect {
+        display: flex;
+        width: 100%;
+    }
+
+    #citySearch {
+        width: 100%;
+    }
+
+    #searchHistory {
+        width: 100%;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        flex-wrap: wrap-reverse;
+    }
+
+    button {
+        width: 49%;
+    }
+
+    #weatherReport {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 15px;
+        height: auto;
+        width: 100%;
+    }
+
+    #cards {
+        flex-direction: column;
+    }
+    
+    .dayCard {
+        width: 100%;
+    }
+
+    .headline {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    .headline p {
+        margin-top: 0px
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+    }
+
+}
+
+/* large phones */
+@media screen and (max-width: 768px) {
+
+    * {
+    font-size: 9px;
+
+    }
+
+    input, select, option, optgroup, textarea, button,
+    pre, code {
+    font-size: 11px;
+    }
+
+}
+
+/* small phones */
+@media screen and (max-width: 576px) {
+
+    
+
 }

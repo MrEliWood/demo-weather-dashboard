@@ -7,11 +7,11 @@ var mainIcon = $('#mainIcon');
 var info = $('#info');
 var searchDisplay = $('#searchHistory');
 
-var day1 = $('#day1');
-var day2 = $('#day2');
-var day3 = $('#day3');
-var day4 = $('#day4');
-var day5 = $('#day5');
+var day1 = $('.day1');
+var day2 = $('.day2');
+var day3 = $('.day3');
+var day4 = $('.day4');
+var day5 = $('.day5');
 
 // set city to display before search
 var city = 'New York'
@@ -149,7 +149,7 @@ var searchHistory = localStorage.getItem('Recent Searches');
 searchDisplay.append(searchHistory);
 
 // listen for search button click
-input.addEventListener("keyup", function(event) {
+$('#searchInput').on("keyup", function(event) {
 
     if (event.keyCode === 13) {
         
@@ -163,6 +163,7 @@ input.addEventListener("keyup", function(event) {
 searchButton.click(function(event) {
 
     event.preventDefault();
+
 
     // generate weather report
     city = $('#searchInput').val();
@@ -179,6 +180,8 @@ searchButton.click(function(event) {
         searchHistory += `<button>${city}</button>`
         localStorage.setItem('Recent Searches', searchHistory);
     };
+
+    $('#searchInput').val("");
 
 });
 
