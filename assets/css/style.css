@@ -12,7 +12,7 @@
 @keyframes fade {
     from {opacity: 0;}
     to {opacity: 1;}
-  }
+}
 
 /* page styles */
 ::placeholder {
@@ -24,6 +24,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.01);
 }
 
 header {
@@ -31,7 +32,7 @@ header {
     justify-content: center;
     background: linear-gradient(120deg, var(--accent2), var(--accent));
     color: var(--light);
-    padding: 30px;
+    padding: 50px;
     width: 100%;
     animation-name: fade;
     animation-duration: 2s;
@@ -41,13 +42,9 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 30px;
+    padding: 50px;
     width: 100%;
     max-width: 1500px;
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 0.25s;
-    animation-fill-mode: backwards;
 }
 
 /* search panel styles */
@@ -55,6 +52,10 @@ main {
     display: flex;
     flex-direction: column;
     width: 30%;
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 0.15s;
+    animation-fill-mode: backwards;
 }
 
 input:focus {
@@ -66,6 +67,7 @@ input:focus {
     padding: 10px;
     margin-top: 15px;
     border-radius: 5px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
 }
 
 #searchInput {
@@ -79,8 +81,8 @@ input:focus {
 }
 
 #searchButton:hover {
-    background-color: var(--accent2);
     cursor: pointer;
+    opacity: 0.75;
 }
 
 button {
@@ -94,15 +96,20 @@ button {
 }
 
 button:hover {
-    background-color: var(--light2);
     cursor: pointer;
+    opacity: 0.75;
 }
 
 #searchHistory {
     display: flex;
     flex-direction: column-reverse;
     border-top: 1px solid var(--dark);
-    margin-top: 15px;
+    margin-top: 25px;
+    padding-top: 10px;
+}
+
+#searchHistory button {
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
 }
 
 #reset {
@@ -118,15 +125,21 @@ button:hover {
 
 /* weather dashboard styles */
 #weatherReport {
-    margin-left: 30px;
+    margin-left: 50px;
     height: 100vh;
     width: 70%;
 }
 
 #today {
-    border: 1px solid var(--dark);
+    background-color: var(--light);
+    border: 1px solid var(--dark2);
     border-radius: 5px;
     padding: 15px;
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 0.3s;
+    animation-fill-mode: backwards;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
 }
 
 #headline {
@@ -164,7 +177,11 @@ button:hover {
 }
 
 #forecast {
-    margin: 15px 0px;
+    margin: 25px 0px;
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 0.45s;
+    animation-fill-mode: backwards;
 }
 
 #cards {
@@ -180,6 +197,42 @@ button:hover {
     border-radius: 5px;
     padding: 15px;
     width: 18%;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
+}
+
+#day1 {
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 0.6s;
+    animation-fill-mode: backwards;
+}
+
+#day2 {
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 0.9s;
+    animation-fill-mode: backwards;
+}
+
+#day3 {
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 1.2s;
+    animation-fill-mode: backwards;
+}
+
+#day4 {
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 1.5s;
+    animation-fill-mode: backwards;
+}
+
+#day5 {
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-delay: 1.8s;
+    animation-fill-mode: backwards;
 }
 
 .dayCard p {
