@@ -1,5 +1,6 @@
 // define variables
 var searchButton = $('#searchButton');
+var clearButton = $('#reset');
 
 var today = $('#today');
 var headline = $('#headline');
@@ -29,12 +30,36 @@ function getWeather() {
         return response.json();
     })
     .then(function(data) {
-        console.log(data);
+
+        var lat = data.coord.lat;
+        var lon = data.coord.lon;
+
+        var uvQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+        fetch(uvQuery)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+
+            console.log(data);
+            var uv = data.current.uvi;
+
+            console.log(uv);
+
+            $('#uv').text(uv);
+
+            if (uv < 2) {
+                $('#uv').addClass('safe');
+            } else {
+                $('#uv').addClass('danger');
+            };
+
+        })
 
         var temp = data.main.temp;
         var wind = data.wind.speed;
         var humidity = data.main.humidity;
-        var uv = data.main.temp;
         var iconCode = data.weather[0].icon;
         var description = data.weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -46,7 +71,6 @@ function getWeather() {
         info.children('.temp').text(`Temp: ${temp}`);
         info.children('.wind').text(`Wind: ${wind} MPH`);
         info.children('.humidity').text(`Humidity: ${humidity} %`);
-        info.children('.uv').text(`UV Index: ${(uv / 50).toFixed(2)}`);
 
     });
 
@@ -58,7 +82,6 @@ function getWeather() {
         return response.json();
     })
     .then(function(data) {
-        console.log(data);
 
         // day 1
         var temp = data.list[0].main.temp;
@@ -148,7 +171,11 @@ getWeather();
 var searchHistory = localStorage.getItem('Recent Searches');
 searchDisplay.append(searchHistory);
 
-// listen for search button click
+if (!searchHistory) {
+    clearButton.hide();
+};
+
+// listen for enter key press for search button
 $('#searchInput').on("keyup", function(event) {
 
     if (event.keyCode === 13) {
@@ -160,14 +187,19 @@ $('#searchInput').on("keyup", function(event) {
 
 });
 
+// listen for search button click
 searchButton.click(function(event) {
 
     event.preventDefault();
 
-
     // generate weather report
-    city = $('#searchInput').val();
-    getWeather();
+    city = $('#searchInput').val().trim();
+
+    if (!city) {
+        return;
+    } else {
+        getWeather();
+    };
 
     // save search to local storage
     var searchHistory = localStorage.getItem('Recent Searches');
@@ -175,10 +207,12 @@ searchButton.click(function(event) {
     if (!searchHistory) {
         searchDisplay.append(`<button>${city}</button>`);
         localStorage.setItem('Recent Searches', `<button>${city}</button>`);
+        clearButton.show();
     } else {
         searchDisplay.append(`<button>${city}</button>`);
         searchHistory += `<button>${city}</button>`
         localStorage.setItem('Recent Searches', searchHistory);
+        clearButton.show();
     };
 
     $('#searchInput').val("");
@@ -194,4 +228,13 @@ recentButton.click(function(event) {
     city = $(event.target).text()
     getWeather();
 
+});
+
+// clear recent searches button
+clearButton.click(function() {
+
+    localStorage.removeItem('Recent Searches');
+    searchDisplay.children().remove();
+    clearButton.hide();
+    
 });
