@@ -6,6 +6,9 @@
     --dark2: rgb(190, 190, 190);
     --accent: steelblue;
     --accent2: rgba(70, 131, 180, 0.5);
+    --overlay: rgba(0, 0, 0, 0.25);
+    --shadow: rgba(0, 0, 0, 0.5);
+    --shadowLight: rgba(0, 0, 0, 0.1);
 }
 
 /* fade in animation */
@@ -14,70 +17,171 @@
     to {opacity: 1;}
 }
 
+@keyframes slideLeft {
+    from {transform: translateX(100%);}
+    to {transform: translateX(0%);}
+}
+
+@keyframes slideRight {
+    from {transform: translateX(-100%);}
+    to {transform: translateX(0%);}
+}
+
+@keyframes slideLeft-fade {
+    from {transform: translateX(100px); opacity: 0;}
+    to {transform: translateX(0px); opacity: 1;}
+}
+
+@keyframes titleIntro {
+    from {color: var(--light);}
+    to {color: var(--dark);}
+}
+
+/* background photos */
+.clearSky {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/clear-sky.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mist {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/mist.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.fewClouds {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/few-clouds.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.scatteredClouds {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/scattered-clouds.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.brokenClouds {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/broken-clouds.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.overcastClouds {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/overcast-clouds.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lightIntensityDrizzle {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/light-intensity-drizzle.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lightRain {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/light-rain.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.moderateRain {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../images/moderate-rain.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /* page styles */
 ::placeholder {
     color: var(--light2);
 }
 
 body {
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.01);
-}
-
-header {
-    display: flex;
-    justify-content: center;
-    background: linear-gradient(120deg, var(--accent2), var(--accent));
-    color: var(--light);
-    padding: 50px;
-    width: 100%;
-    animation-name: fade;
-    animation-duration: 2s;
 }
 
 main {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 50px;
     width: 100%;
-    max-width: 1500px;
+}
+
+#city {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    text-transform: capitalize;
+    color: var(--dark);
+    z-index: 1;
+    animation: titleIntro 1s 1.5s backwards;
+}
+
+#openWeatherCredit {
+    justify-self: flex-end;
+    margin: auto 0px 0px 0px;
+    z-index: 100;
+    color: var(--dark);
+    animation: fade 2s 6s backwards;
+    text-align: center;
 }
 
 /* search panel styles */
 #citySelect {
     display: flex;
     flex-direction: column;
-    width: 30%;
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 0.15s;
-    animation-fill-mode: backwards;
+    position: absolute;
+    left: 0;
+    height: 100vh;
+    width: 25%;
+    background: var(--light);
+    padding: 120px 30px 30px 30px;
+    box-shadow: 0px 0px 25px var(--shadow);
+    animation: slideRight 1s 1.5s backwards;
+}
+
+.nightMode {
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 input:focus {
     outline: none;
 }
 
-#citySearch input {
+#searchInput {
     width: 100%;
     padding: 10px;
     margin-top: 15px;
     border-radius: 5px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
 }
 
 #searchInput {
-    border: 0.5px solid var(--dark);
+    border: 1px solid var(--dark2);
 }
 
 #searchButton {
     background-color: var(--accent);
     color: var(--light);
     border: none;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
 }
 
 #searchButton:hover {
@@ -103,13 +207,13 @@ button:hover {
 #searchHistory {
     display: flex;
     flex-direction: column-reverse;
-    border-top: 1px solid var(--dark);
+    border-top: 1px solid var(--dark2);
     margin-top: 25px;
     padding-top: 10px;
 }
 
-#searchHistory button {
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
+#citySearch h4 {
+    font-weight: 300;
 }
 
 #reset {
@@ -124,49 +228,79 @@ button:hover {
 }
 
 /* weather dashboard styles */
-#weatherReport {
-    margin-left: 50px;
-    height: 100vh;
-    width: 70%;
-}
-
 #today {
-    background-color: var(--light);
-    border: 1px solid var(--dark2);
-    border-radius: 5px;
-    padding: 15px;
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 0.3s;
-    animation-fill-mode: backwards;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
-}
-
-#headline {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    position: absolute;
+    left: 25%;
+    padding: 120px 30px 30px 30px;
+    color: var(--light);
+    height: 100vh;
+    min-width: 10%;
+    width: 75%;
+    text-shadow: 0px 0px 15px var(--shadow);
 }
 
-#today h2 {
-    text-transform: capitalize;
+#today h4 {
+    animation: slideLeft-fade 1s 1.5s backwards;
+}
+
+#today .description {
+    animation: slideLeft-fade 1s 1.6s backwards;
+}
+
+#today img {
+    animation: slideLeft-fade 1s 1.7s backwards;
+    margin: -10px 0px 15px -15px;
+    width: fit-content;
+    height: fit-content;
+}
+
+#today .temp {
+    animation: slideLeft-fade 1s 1.8s backwards;
+}
+
+#today .wind {
+    animation: slideLeft-fade 1s 1.9s backwards;
+}
+
+#today .humidity {
+    animation: slideLeft-fade 1s 2s backwards;
+}
+
+.temp {
+    font-size: 4.0em;
+    font-weight: 700;
+    margin: none;
 }
 
 .description {
     text-transform: capitalize;
-}
-
-#mainIcon {
-    display: flex;
-    justify-content: space-between;
-}
-
-#today p {
     margin-top: 15px;
 }
 
-#info {
-    display: flex;
-    justify-content: space-between;
+.dayStat {
+    font-size: 2.4em;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.wind,
+.humidity {
+    margin-top: 30px;
+}
+
+#today p {
+    animation: fade 1s 6s backwards;
+}
+
+#uvIndex {
+    justify-content: flex-end;
+    margin-top: auto;
+}
+
+#uv {
+    font-size: 1em;
 }
 
 .safe {
@@ -176,67 +310,92 @@ button:hover {
     color: var(--light);
 }
 
-#forecast {
-    margin: 25px 0px;
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 0.45s;
-    animation-fill-mode: backwards;
-}
-
-#cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
+/* forecast */
 .dayCard {
-    margin-top: 15px;
-    background: linear-gradient(120deg, var(--accent2), var(--accent));
     color: var(--light);
-    border-radius: 5px;
-    padding: 15px;
-    width: 18%;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.03);
+    padding: 120px 30px;
+    height: 100vh;
+    min-width: 10%;
+    width: 50%;
+    text-shadow: 0px 0px 15px var(--shadow);
+    box-shadow: 0px 0px 25px var(--shadow);
 }
 
 #day1 {
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 0.6s;
-    animation-fill-mode: backwards;
+    animation: slideLeft 2s 2.5s backwards;
+    z-index: 1;
+    position: absolute;
+    left: 50%;
 }
 
 #day2 {
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 0.9s;
-    animation-fill-mode: backwards;
+    animation: slideLeft 2s 3s backwards;
+    z-index: 2;
+    position: absolute;
+    left: 60%;
 }
 
 #day3 {
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 1.2s;
-    animation-fill-mode: backwards;
+    animation: slideLeft 2s 3.4s backwards;
+    z-index: 3;
+    position: absolute;
+    left: 70%;
 }
 
 #day4 {
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 1.5s;
-    animation-fill-mode: backwards;
+    animation: slideLeft 2s 3.7s backwards;
+    z-index: 4;
+    position: absolute;
+    left: 80%;
 }
 
 #day5 {
-    animation-name: fade;
-    animation-duration: 2s;
-    animation-delay: 1.8s;
-    animation-fill-mode: backwards;
+    animation: slideLeft 2s 4s backwards;
+    z-index: 5;
+    position: absolute;
+    left: 90%;
 }
 
-.dayCard p {
-    margin-top: 15px;
+#day1:hover {
+    transform: translateX(-30%);
+}
+
+#day2:hover {
+    transform: translateX(-30%);
+}
+
+#day2:hover ~ div {
+    transform: translateX(-30%);
+}
+
+#day3:hover {
+    transform: translateX(-30%);
+}
+
+#day3:hover ~ div {
+    transform: translateX(-30%);
+}
+
+#day4:hover {
+    transform: translateX(-30%);
+}
+
+#day4:hover ~ div {
+    transform: translateX(-30%);
+}
+
+#day5:hover {
+    transform: translateX(-30%);
+}
+
+#day5:hover ~ div {
+    transform: translateX(-30%);
+}
+
+.dayCard img {
+    margin: -10px 0px 15px -15px;
+    width: fit-content;
+    height: fit-content;
 }
 
 /* tablets */

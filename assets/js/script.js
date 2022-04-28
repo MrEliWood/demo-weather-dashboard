@@ -4,7 +4,6 @@ var clearButton = $('#reset');
 
 var today = $('#today');
 var headline = $('#headline');
-var mainIcon = $('#mainIcon');
 var info = $('#info');
 var searchDisplay = $('#searchHistory');
 
@@ -43,9 +42,19 @@ function getWeather() {
         .then(function(data) {
 
             console.log(data);
-            var uv = data.current.uvi;
 
-            console.log(uv);
+            // change theme based on sunrise and sunset
+            var sunrise = data.current.sunrise;
+            var sunset = data.current.sunset;
+            var currentTime = Date.now();
+
+            if (currentTime < sunrise && currentTime > sunset) {
+                $('body').css('background-color', 'var(--dark')
+                $('#citySelect').addClass('nightMode');
+                document.documentElement.style.setProperty('--overlay', 'rgba(0, 0, 0, 0.5)'); 
+            };
+
+            var uv = data.current.uvi;
 
             $('#uv').text(uv);
 
@@ -57,20 +66,40 @@ function getWeather() {
 
         })
 
-        var temp = data.main.temp;
-        var wind = data.wind.speed;
-        var humidity = data.main.humidity;
+        var temp = Math.round(data.main.temp);
+        var wind = Math.round(data.wind.speed);
+        var humidity = Math.round(data.main.humidity);
         var iconCode = data.weather[0].icon;
         var description = data.weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-        headline.children('#city').text(city);
-        headline.children('#currentDate').text(moment().format('dddd, MMM Do'));
-        mainIcon.children('.description').text(description);
-        mainIcon.children('img').attr({'src': iconURL, 'alt': description});
-        info.children('.temp').text(`Temp: ${temp}`);
-        info.children('.wind').text(`Wind: ${wind} MPH`);
-        info.children('.humidity').text(`Humidity: ${humidity} %`);
+        $('#city').text(city);
+        today.children('.description').text(description);
+        today.children('img').attr({'src': iconURL, 'alt': description});
+        $('#todayTempNum').text(`${temp}°`);
+        $('#todayWindNum').text(`${wind}`);
+        $('#todayHumidityNum').text(`${humidity}`);
+
+        // background photos
+        if (description == 'clear sky') {
+            $('body').attr('class', 'clearSky')
+        } else if (description == 'mist') {
+            $('body').attr('class', 'mist')
+        } else if (description == 'few clouds') {
+            $('body').attr('class', 'fewClouds')
+        } else if (description == 'scattered clouds') {
+            $('body').attr('class', 'scatteredClouds')
+        } else if (description == 'broken clouds') {
+            $('body').attr('class', 'brokenClouds')
+        } else if (description == 'overcast clouds') {
+            $('body').attr('class', 'overcastClouds')
+        } else if (description == 'light intensity drizzle') {
+            $('body').attr('class', 'lightIntensityDrizzle')
+        } else if (description == 'light rain') {
+            $('body').attr('class', 'lightRain')
+        } else if (description == 'moderate rain') {
+            $('body').attr('class', 'moderateRain')
+        }
 
     });
 
@@ -84,24 +113,44 @@ function getWeather() {
     .then(function(data) {
 
         // day 1
-        var temp = data.list[0].main.temp;
-        var wind = data.list[0].wind.speed;
-        var humidity = data.list[0].main.humidity;
+        var temp = Math.round(data.list[0].main.temp);
+        var wind = Math.round(data.list[0].wind.speed);
+        var humidity = Math.round(data.list[0].main.humidity);
         var iconCode = data.list[0].weather[0].icon;
         var description = data.list[0].weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
         day1.children('.description').text(description);
         day1.children('img').attr({'src': iconURL, 'alt': description});
-        day1.children('.temp').text(`Temp: ${temp}`);
-        day1.children('.wind').text(`Wind: ${wind} MPH`);
-        day1.children('.humidity').text(`Humidity: ${humidity} %`);
+        $('#day1TempNum').text(`${temp}°`);
+        $('#day1WindNum').text(`${wind}`);
+        $('#day1HumidityNum').text(`${humidity}`);
+
+        if (description == 'clear sky') {
+            $('#day1').attr('class', 'dayCard clearSky')
+        } else if (description == 'mist') {
+            $('#day1').attr('class', 'dayCard mist')
+        } else if (description == 'few clouds') {
+            $('#day1').attr('class', 'dayCard fewClouds')
+        } else if (description == 'scattered clouds') {
+            $('#day1').attr('class', 'dayCard scatteredClouds')
+        } else if (description == 'broken clouds') {
+            $('#day1').attr('class', 'dayCard brokenClouds')
+        } else if (description == 'overcast clouds') {
+            $('#day1').attr('class', 'dayCard overcastClouds')
+        } else if (description == 'light intensity drizzle') {
+            $('#day1').attr('class', 'dayCard lightIntensityDrizzle')
+        } else if (description == 'light rain') {
+            $('#day1').attr('class', 'dayCard lightRain')
+        } else if (description == 'moderate rain') {
+            $('#day1').attr('class', 'dayCard moderateRain')
+        }
 
         // day 2
         var date = moment().add(2, 'days').format('dddd');
-        var temp = data.list[1].main.temp;
-        var wind = data.list[1].wind.speed;
-        var humidity = data.list[1].main.humidity;
+        var temp = Math.round(data.list[1].main.temp);
+        var wind = Math.round(data.list[1].wind.speed);
+        var humidity = Math.round(data.list[1].main.humidity);
         var iconCode = data.list[1].weather[0].icon;
         var description = data.list[1].weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -109,15 +158,35 @@ function getWeather() {
         day2.children('.description').text(description);
         day2.children('img').attr({'src': iconURL, 'alt': description});
         day2.children('.date').text(date);
-        day2.children('.temp').text(`Temp: ${temp}`);
-        day2.children('.wind').text(`Wind: ${wind} MPH`);
-        day2.children('.humidity').text(`Humidity: ${humidity} %`);
+        $('#day2TempNum').text(`${temp}°`);
+        $('#day2WindNum').text(`${wind}`);
+        $('#day2HumidityNum').text(`${humidity}`);
+
+        if (description == 'clear sky') {
+            $('#day2').attr('class', 'dayCard clearSky')
+        } else if (description == 'mist') {
+            $('#day2').attr('class', 'dayCard mist')
+        } else if (description == 'few clouds') {
+            $('#day2').attr('class', 'dayCard fewClouds')
+        } else if (description == 'scattered clouds') {
+            $('#day2').attr('class', 'dayCard scatteredClouds')
+        } else if (description == 'broken clouds') {
+            $('#day2').attr('class', 'dayCard brokenClouds')
+        } else if (description == 'overcast clouds') {
+            $('#day2').attr('class', 'dayCard overcastClouds')
+        } else if (description == 'light intensity drizzle') {
+            $('#day2').attr('class', 'dayCard lightIntensityDrizzle')
+        } else if (description == 'light rain') {
+            $('#day2').attr('class', 'dayCard lightRain')
+        } else if (description == 'moderate rain') {
+            $('#day2').attr('class', 'dayCard moderateRain')
+        }
 
         // day 3
         var date = moment().add(3, 'days').format('dddd');
-        var temp = data.list[2].main.temp;
-        var wind = data.list[2].wind.speed;
-        var humidity = data.list[2].main.humidity;
+        var temp = Math.round(data.list[2].main.temp);
+        var wind = Math.round(data.list[2].wind.speed);
+        var humidity = Math.round(data.list[2].main.humidity);
         var iconCode = data.list[2].weather[0].icon;
         var description = data.list[2].weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -125,15 +194,35 @@ function getWeather() {
         day3.children('.description').text(description);
         day3.children('img').attr({'src': iconURL, 'alt': description});
         day3.children('.date').text(date);
-        day3.children('.temp').text(`Temp: ${temp}`);
-        day3.children('.wind').text(`Wind: ${wind} MPH`);
-        day3.children('.humidity').text(`Humidity: ${humidity} %`);
+        $('#day3TempNum').text(`${temp}°`);
+        $('#day3WindNum').text(`${wind}`);
+        $('#day3HumidityNum').text(`${humidity}`);
+
+        if (description == 'clear sky') {
+            $('#day3').attr('class', 'dayCard clearSky')
+        } else if (description == 'mist') {
+            $('#day3').attr('class', 'dayCard mist')
+        } else if (description == 'few clouds') {
+            $('#day3').attr('class', 'dayCard fewClouds')
+        } else if (description == 'scattered clouds') {
+            $('#day3').attr('class', 'dayCard scatteredClouds')
+        } else if (description == 'broken clouds') {
+            $('#day3').attr('class', 'dayCard brokenClouds')
+        } else if (description == 'overcast clouds') {
+            $('#day3').attr('class', 'dayCard overcastClouds')
+        } else if (description == 'light intensity drizzle') {
+            $('#day3').attr('class', 'dayCard lightIntensityDrizzle')
+        } else if (description == 'light rain') {
+            $('#day3').attr('class', 'dayCard lightRain')
+        } else if (description == 'moderate rain') {
+            $('#day3').attr('class', 'dayCard moderateRain')
+        }
 
         // day 4
         var date = moment().add(4, 'days').format('dddd');
-        var temp = data.list[3].main.temp;
-        var wind = data.list[3].wind.speed;
-        var humidity = data.list[3].main.humidity;
+        var temp = Math.round(data.list[3].main.temp);
+        var wind = Math.round(data.list[3].wind.speed);
+        var humidity = Math.round(data.list[3].main.humidity);
         var iconCode = data.list[3].weather[0].icon;
         var description = data.list[3].weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -141,15 +230,35 @@ function getWeather() {
         day4.children('.description').text(description);
         day4.children('img').attr({'src': iconURL, 'alt': description});
         day4.children('.date').text(date);
-        day4.children('.temp').text(`Temp: ${temp}`);
-        day4.children('.wind').text(`Wind: ${wind} MPH`);
-        day4.children('.humidity').text(`Humidity: ${humidity} %`);
+        $('#day4TempNum').text(`${temp}°`);
+        $('#day4WindNum').text(`${wind}`);
+        $('#day4HumidityNum').text(`${humidity}`);
+
+        if (description == 'clear sky') {
+            $('#day4').attr('class', 'dayCard clearSky')
+        } else if (description == 'mist') {
+            $('#day4').attr('class', 'dayCard mist')
+        } else if (description == 'few clouds') {
+            $('#day4').attr('class', 'dayCard fewClouds')
+        } else if (description == 'scattered clouds') {
+            $('#day4').attr('class', 'dayCard scatteredClouds')
+        } else if (description == 'broken clouds') {
+            $('#day4').attr('class', 'dayCard brokenClouds')
+        } else if (description == 'overcast clouds') {
+            $('#day4').attr('class', 'dayCard overcastClouds')
+        } else if (description == 'light intensity drizzle') {
+            $('#day4').attr('class', 'dayCard lightIntensityDrizzle')
+        } else if (description == 'light rain') {
+            $('#day4').attr('class', 'dayCard lightRain')
+        } else if (description == 'moderate rain') {
+            $('#day4').attr('class', 'dayCard moderateRain')
+        }
 
         // day 5
         var date = moment().add(5, 'days').format('dddd');
-        var temp = data.list[4].main.temp;
-        var wind = data.list[4].wind.speed;
-        var humidity = data.list[4].main.humidity;
+        var temp = Math.round(data.list[4].main.temp);
+        var wind = Math.round(data.list[4].wind.speed);
+        var humidity = Math.round(data.list[4].main.humidity);
         var iconCode = data.list[4].weather[0].icon;
         var description = data.list[4].weather[0].description;
         var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -157,9 +266,29 @@ function getWeather() {
         day5.children('.description').text(description);
         day5.children('img').attr({'src': iconURL, 'alt': description});
         day5.children('.date').text(date);
-        day5.children('.temp').text(`Temp: ${temp}`);
-        day5.children('.wind').text(`Wind: ${wind} MPH`);
-        day5.children('.humidity').text(`Humidity: ${humidity} %`);
+        $('#day5TempNum').text(`${temp}°`);
+        $('#day5WindNum').text(`${wind}`);
+        $('#day5HumidityNum').text(`${humidity}`);
+
+        if (description == 'clear sky') {
+            $('#day5').attr('class', 'dayCard clearSky')
+        } else if (description == 'mist') {
+            $('#day5').attr('class', 'dayCard mist')
+        } else if (description == 'few clouds') {
+            $('#day5').attr('class', 'dayCard fewClouds')
+        } else if (description == 'scattered clouds') {
+            $('#day5').attr('class', 'dayCard scatteredClouds')
+        } else if (description == 'broken clouds') {
+            $('#day5').attr('class', 'dayCard brokenClouds')
+        } else if (description == 'overcast clouds') {
+            $('#day5').attr('class', 'dayCard overcastClouds')
+        } else if (description == 'light intensity drizzle') {
+            $('#day5').attr('class', 'dayCard lightIntensityDrizzle')
+        } else if (description == 'light rain') {
+            $('#day5').attr('class', 'dayCard lightRain')
+        } else if (description == 'moderate rain') {
+            $('#day5').attr('class', 'dayCard moderateRain')
+        }
 
     });
 
