@@ -11,7 +11,7 @@
     --shadowLight: rgba(0, 0, 0, 0.1);
 }
 
-/* fade in animation */
+/* animations */
 @keyframes fade {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -145,11 +145,6 @@ main {
     animation: slideRight 1s 1.5s backwards;
 }
 
-.nightMode {
-    background-color: var(--dark);
-    color: var(--light);
-}
-
 input:focus {
     outline: none;
 }
@@ -232,14 +227,16 @@ button:hover {
     justify-content: flex-end;
     align-items: flex-start;
     margin: auto 0px 0px 0px;
+    animation: fade 1s 6s backwards;
 }
 
 #hideButton {
-    bottom: 60px;
+    position: absolute;
+    bottom: 90px;
     left: 30px;
     width: 150px;
     animation: fade 2s 6s backwards;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
     color: gray;
 }
 
@@ -252,12 +249,14 @@ button:hover {
     display: none;
     justify-content: flex-end;
     margin-top: auto;
-    bottom: 60px;
+    position: absolute;
+    bottom: 90px;
     left: 30px;
     width: 150px;
-    animation: fade 2s backwards;
-    background-color: rgba(255, 255, 255, 0.75);
+    animation: fade 2s 6s backwards;
+    background-color: rgba(255, 255, 255, 0.5);
     color: gray;
+    z-index: 5;
 }
 
 #showButton:hover {
@@ -276,11 +275,6 @@ button:hover {
 
 .hideSearchPanel {
     transform: translateX(-100%);
-}
-
-.moveTodayPanel {
-    position: absolute;
-    left: 30px;
 }
 
 /* weather dashboard styles */
@@ -346,10 +340,6 @@ button:hover {
     margin-top: 30px;
 }
 
-#today p {
-    animation: fade 1s 6s backwards;
-}
-
 #uvIndex {
     justify-content: flex-end;
     margin: 30px 0px 0px 0px;
@@ -357,10 +347,53 @@ button:hover {
 
 #uv {
     font-size: 1em;
+    font-weight: 500;
+    margin: 0px 10px;
 }
 
-.safe {
+#uvStatus {
+    opacity: 0;
+}
+
+#uvIndex:hover {
+    cursor: default;
+}
+
+#uvIndex:hover #uvStatus {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.uvSafe {
     background-color: green;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--light);
+}
+
+.uvModerate {
+    background-color: rgb(205, 180, 0);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--light);
+}
+
+.uvHigh {
+    background-color: rgb(230, 150, 0);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--light);
+}
+
+.uvVeryHigh {
+    background-color: rgb(200, 0, 0);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--light);
+}
+
+.uvExtreme {
+    background-color: DarkViolet;
     border-radius: 5px;
     padding: 5px 10px;
     color: var(--light);

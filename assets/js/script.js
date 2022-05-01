@@ -7,6 +7,7 @@ var headline = $('#headline');
 var info = $('#info');
 var searchDisplay = $('#searchHistory');
 var searchHistory = JSON.parse(localStorage.getItem('WD Search History'));
+var searchPanelStatus = JSON.parse(localStorage.getItem('WD Search Panel Status'));
 
 var day1 = $('.day1');
 var day2 = $('.day2');
@@ -21,6 +22,15 @@ if (!searchHistory) {
     var city = searchHistory[0];
 }
 
+// remember search panel position
+if (searchPanelStatus == 'hidden') {
+    $('#citySelect').css('animation', 'none');
+    $('#city').css('animation', 'none');
+    hideSearch();
+};
+
+console.log(searchPanelStatus);
+
 // collect weather data and display on page
 function getWeather() {
 
@@ -34,6 +44,8 @@ function getWeather() {
             return response.json();
         })
         .then(function (data) {
+
+            console.log(data);
 
             var lat = data.coord.lat;
             var lon = data.coord.lon;
@@ -60,14 +72,28 @@ function getWeather() {
                     };
 
                     var uv = data.current.uvi;
+                    var uvStatus;
 
                     $('#uv').text(uv);
 
                     if (uv < 2) {
-                        $('#uv').addClass('safe');
+                        $('#uv').addClass('uvSafe');
+                        uvStatus = 'Safe';
+                    } else if (uv < 6) {
+                        $('#uv').addClass('uvModerate');
+                        uvStatus = 'Moderate';
+                    } else if (uv < 8) {
+                        $('#uv').addClass('uvHigh');
+                        uvStatus = 'High';
+                    } else if (uv < 11) {
+                        $('#uv').addClass('uvVeryHigh');
+                        uvStatus = 'Very High';
                     } else {
-                        $('#uv').addClass('danger');
+                        $('#uv').addClass('uvExtreme');
+                        uvStatus = 'Extreme';
                     };
+
+                    $('#uvStatus').text(uvStatus)
 
                 })
 
@@ -79,8 +105,8 @@ function getWeather() {
             var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
             $('#city').text(city);
-            today.children('.description').text(description);
-            today.children('img').attr({ 'src': iconURL, 'alt': description });
+            $('#todayHeader').children('.description').text(description);
+            $('#todayHeader').children('img').attr({ 'src': iconURL, 'alt': description });
             $('#todayTempNum').text(`${temp}°`);
             $('#todayWindNum').text(`${wind}`);
             $('#todayHumidityNum').text(`${humidity}`);
@@ -323,35 +349,9 @@ if (!searchHistory) {
     clearButton.hide();
 };
 
-// listen for enter key press for search button
-$('#searchInput').on("keyup", function (event) {
+// save search to local storage
+function saveSearch() {
 
-    if (event.keyCode === 13) {
-
-        event.preventDefault();
-        searchButton.click();
-
-    }
-
-});
-
-// listen for search button click
-searchButton.click(function (event) {
-
-    event.preventDefault();
-
-    // generate weather report
-    city = $('#searchInput').val().trim();
-
-    if (!city) {
-        return;
-    } else {
-        getWeather();
-    };
-
-    $('#searchInput').val("");
-
-    // save search to local storage
     if (!searchHistory) {
 
         searchHistory = [city];
@@ -382,16 +382,47 @@ searchButton.click(function (event) {
 
     };
 
+};
+
+// listen for search button click
+searchButton.click(function(event) {
+
+    event.preventDefault();
+
+    // generate weather report
+    city = $('#searchInput').val().trim();
+
+    if (!city) {
+        return;
+    } else {
+        getWeather();
+    };
+
+    saveSearch();
+
+    $('#searchInput').val("");
+
+});
+
+// listen for enter key press for search button
+$('#searchInput').on("keyup", function (event) {
+
+    if (event.keyCode === 13) {
+
+        event.preventDefault();
+        searchButton.click();
+
+    }
+
 });
 
 // listen for recent search button clicks
-var recentButton = $('button');
-
-recentButton.click(function (event) {
+$('#searchHistory').click(function (event) {
 
     // generate weather report
-    city = $(event.target).text()
+    city = $(event.target).text();
     getWeather();
+    saveSearch();
 
 });
 
@@ -405,16 +436,27 @@ clearButton.click(function () {
 });
 
 // hide and show the search panel
-$('#showButton').hide();
+function hideSearch() {
+
+    $('#citySelect').addClass('hideSearchPanel');
+    $('#today').css('left', '0%');
+    $('#todayBody').css('margin-left', '60px');
+    $('#city').css('color', 'white');
+
+    // hide and show button animation
+    $('#showButton').css('display', 'block');
+    $('#hideButton').css('display', 'none');
+
+    // remember position
+    localStorage.setItem('WD Search Panel Status', JSON.stringify('hidden'));
+
+};
 
 $('#hideButton').click(function(event) {
 
     event.preventDefault();
-
-    $('#citySelect').addClass('hideSearchPanel');
-    $('#today').css('left', '0%');
-    $('#city').css('color', 'white');
-    $('#showButton').show();
+    $('#showButton').css('animation', 'none');
+    hideSearch();
 
 });
 
@@ -424,7 +466,38 @@ $('#showButton').click(function(event) {
 
     $('#citySelect').removeClass('hideSearchPanel');
     $('#today').css('left', '25%');
+    $('#todayBody').css('margin-left', '0px');
     $('#city').css('color', 'var(--Dark)');
-    $('#showButton').hide();
+
+    // hide and show button animation
+    $('#hideButton').css('animation', 'none');
+    $('#hideButton').css('display', 'block');
+    $('#showButton').css('display', 'none');
+
+    localStorage.removeItem('WD Search Panel Status');
 
 });
+
+// Geolocation
+function geolocation() {
+
+    function success(position) {
+      const latitude  = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      console.log(latitude, longitude);
+    }
+  
+    function error() {
+      
+    }
+  
+    if(!navigator.geolocation) {
+      $('#geolocation').hide();
+    } else {
+      navigator.geolocation.getCurrentPosition(success, error);
+    };
+
+};
+
+geolocation();

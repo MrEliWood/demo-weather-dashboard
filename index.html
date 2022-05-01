@@ -30,6 +30,7 @@
                 <h4>Search for a City:</h4>
                 <input id="searchInput" type="text" placeholder="New York" autofocus>
                 <input id="searchButton" type="submit" value="Search">
+                <button id="geolocation">Current Location</button>
 
             </div>
 
@@ -39,28 +40,37 @@
 
             <div id="searchFooter">
 
-                <button id="hideButton">← Hide Search</button>
                 <p id="openWeatherCredit">Weather data provided by openweathermap.org</p>
 
             </div>
 
         </div>
 
+        <button id="showButton">Show Search →</button>
+        <button id="hideButton">← Hide Search</button>
+
         <div id="today">
 
-            <h4>Today</h4>
+            <div id="todayBody">
 
-            <p class="description"></p>
-            <img src="" alt="">
+                <h4>Today</h4>
 
-            <p class="temp" id="todayTempNum"></p>
-            <p class="wind"><span class="dayStat" id="todayWindNum"></span> mph<br>Wind Speed</p>
-            <p class="humidity"><span class="dayStat" id="todayHumidityNum"></span> %<br>Humidity</p>
+                <div id="todayHeader">
+
+                    <p class="description"></p>
+                    <img src="" alt="">
+
+                </div>
+
+                <p class="temp" id="todayTempNum"></p>
+                <p class="wind"><span class="dayStat" id="todayWindNum"></span> mph<br>Wind Speed</p>
+                <p class="humidity"><span class="dayStat" id="todayHumidityNum"></span> %<br>Humidity</p>
+
+            </div>
 
             <div id="todayFooter">
 
-                <button id="showButton">Show Search →</button>
-                <p id="uvIndex">UV Index <span id="uv"></span></p>
+                <p id="uvIndex">UV Index<span id="uv"></span><span id="uvStatus"></span></p>
 
             </div>
 
