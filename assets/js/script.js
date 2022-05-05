@@ -175,7 +175,7 @@ function getWeather() {
                 $(`#day${i}Icon`).attr({ 'src': forecastIconURL, 'alt': forecastDescription });
 
                 // set forecast background
-                setBackground('dayCard', `#day${i}`, forecastDescription,);
+                setBackground('dayCard', `#day${i}`, forecastDescription);
 
                 // set weekday
                 if (i > 1) {
@@ -183,8 +183,7 @@ function getWeather() {
                     $(`#day${i}Date`).text(setDay);
                 };
 
-            }
-
+            };
 
         });
 
@@ -348,6 +347,7 @@ $('#showButton').click(function (event) {
     $('#citySelect').removeClass('hideSearchPanel');
     $('#today').css('left', '25%');
     $('#todayBody').css('margin-left', '0px');
+    $('#today h4').css('margin-left', '0px');
     $('#city').css('color', 'var(--Dark)');
 
     // hide and show button animation
@@ -369,7 +369,7 @@ $('#locationPin').click(function (event) {
 
 // location pin hover
 $('#locationPin').mouseover(function () {
-    $('#locationPinLabel').css('opacity', '0.5');
+    $('#locationPinLabel').css('opacity', '0.9');
 });
 
 $('#locationPin').mouseout(function () {

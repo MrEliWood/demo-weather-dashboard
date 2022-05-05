@@ -232,13 +232,13 @@ main {
     height: 35px;
     width: auto;
     margin-bottom: 10px;
-    opacity: 0.9;
+    opacity: 0.5;
     transition: 0.2s all ease-in-out;
 }
 
 #locationPin:hover {
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.9;
 }
 
 input:focus {
@@ -330,7 +330,7 @@ button:hover {
 
 #hideButton {
     position: absolute;
-    bottom: 90px;
+    bottom: 75px;
     left: 30px;
     width: 150px;
     animation: fade 2s 8s backwards;
@@ -347,7 +347,7 @@ button:hover {
     justify-content: flex-end;
     margin-top: auto;
     position: absolute;
-    bottom: 90px;
+    bottom: 75px;
     left: 30px;
     width: 150px;
     animation: fade 2s 8s backwards;
