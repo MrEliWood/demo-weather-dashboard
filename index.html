@@ -17,7 +17,7 @@
 
 <body>
 
-    <h1 id="city">New York</h1>
+    <h1 id="city">New York, NY</h1>
 
     <main>
 
@@ -27,10 +27,17 @@
 
             <div id="citySearch">
 
-                <h4>Search for a City:</h4>
-                <input id="searchInput" type="text" placeholder="New York" autofocus>
+                <div id="searchLabels">
+                    <h4>Search for a city:</h4>
+                    <h4 id="locationPinLabel">Current Location</h4>
+                </div>
+
+                <div id="searchInputContainer">
+                    <input id="searchInput" type="text" placeholder="New York" autofocus>
+                    <img src="./assets/icons/icons.001.png" alt="Use My Current Location" id="locationPin">
+                </div>
+
                 <input id="searchButton" type="submit" value="Search">
-                <button id="geolocation">Current Location</button>
 
             </div>
 
@@ -51,9 +58,9 @@
 
         <div id="today">
 
-            <div id="todayBody">
+            <h4>Today</h4>
 
-                <h4>Today</h4>
+            <div id="todayBody">
 
                 <div id="todayHeader">
 
@@ -76,126 +83,115 @@
 
         </div>
 
-        <div class="dayCard" id="day5">
+        <div id="forecast">
 
-            <div class="day5 headline">
+            <div class="dayCard" id="day5">
 
-                <h4 class="date"></h4>
-                <p class="description"></p>
+                <h4 class="date" id="day5Date"></h4>
 
-            </div>
+                <div class="dayCardBody">
 
-            <div class="day5 mainIcon">
+                    <div class="dayCardHeader">
 
-                <img src="" alt="">
+                        <p class="description" id="day5Description"></p>
+                        <img id="day5Icon" src="" alt="">
 
-            </div>
+                    </div>
 
-            <div class="day5 info">
 
-                <p class="temp" id="day5TempNum"></p>
-                <p class="wind"><span class="dayStat" id="day5WindNum"></span> mph<br>Wind Speed</p>
-                <p class="humidity"><span class="dayStat" id="day5HumidityNum"></span> %<br>Humidity</p>
+                    <p class="temp" id="day5TempNum"></p>
+                    <p class="wind"><span class="dayStat" id="day5WindNum"></span> mph<br>Wind Speed</p>
+                    <p class="humidity"><span class="dayStat" id="day5HumidityNum"></span> %<br>Humidity</p>
 
-            </div>
-
-        </div>
-
-        <div class="dayCard" id="day4">
-
-            <div class="day4 headline">
-
-                <h4 class="date"></h4>
-                <p class="description"></p>
+                </div>
 
             </div>
 
-            <div class="day4 mainIcon">
+            <div class="dayCard" id="day4">
 
-                <img src="" alt="">
+                <h4 class="date" id="day4Date"></h4>
 
-            </div>
+                <div class="dayCardBody">
 
-            <div class="day4 info">
+                    <div class="dayCardHeader">
 
-                <p class="temp" id="day4TempNum"></p>
-                <p class="wind"><span class="dayStat" id="day4WindNum"></span> mph<br>Wind Speed</p>
-                <p class="humidity"><span class="dayStat" id="day4HumidityNum"></span> %<br>Humidity</p>
+                        <p class="description" id="day4Description"></p>
+                        <img id="day4Icon" src="" alt="">
 
-            </div>
+                    </div>
 
-        </div>
 
-        <div class="dayCard" id="day3">
+                    <p class="temp" id="day4TempNum"></p>
+                    <p class="wind"><span class="dayStat" id="day4WindNum"></span> mph<br>Wind Speed</p>
+                    <p class="humidity"><span class="dayStat" id="day4HumidityNum"></span> %<br>Humidity</p>
 
-            <div class="day3 headline">
-
-                <h4 class="date"></h4>
-                <p class="description"></p>
+                </div>
 
             </div>
 
-            <div class="day3 mainIcon">
+            <div class="dayCard" id="day3">
 
-                <img src="" alt="">
+                <h4 class="date" id="day3Date"></h4>
 
-            </div>
+                <div class="dayCardBody">
 
-            <div class="day3 info">
+                    <div class="dayCardHeader">
 
-                <p class="temp" id="day3TempNum"></p>
-                <p class="wind"><span class="dayStat" id="day3WindNum"></span> mph<br>Wind Speed</p>
-                <p class="humidity"><span class="dayStat" id="day3HumidityNum"></span> %<br>Humidity</p>
+                        <p class="description" id="day3Description"></p>
+                        <img id="day3Icon" src="" alt="">
 
-            </div>
+                    </div>
 
-        </div>
 
-        <div class="dayCard" id="day2">
+                    <p class="temp" id="day3TempNum"></p>
+                    <p class="wind"><span class="dayStat" id="day3WindNum"></span> mph<br>Wind Speed</p>
+                    <p class="humidity"><span class="dayStat" id="day3HumidityNum"></span> %<br>Humidity</p>
 
-            <div class="day2 headline">
-
-                <h4 class="date"></h4>
-                <p class="description"></p>
+                </div>
 
             </div>
 
-            <div class="day2 mainIcon">
+            <div class="dayCard" id="day2">
 
-                <img src="" alt="">
+                <h4 class="date" id="day2Date"></h4>
 
-            </div>
+                <div class="dayCardBody">
 
-            <div class="day2 info">
+                    <div class="dayCardHeader">
 
-                <p class="temp" id="day2TempNum"></p>
-                <p class="wind"><span class="dayStat" id="day2WindNum"></span> mph<br>Wind Speed</p>
-                <p class="humidity"><span class="dayStat" id="day2HumidityNum"></span> %<br>Humidity</p>
+                        <p class="description" id="day2Description"></p>
+                        <img id="day2Icon" src="" alt="">
 
-            </div>
+                    </div>
 
-        </div>
 
-        <div class="dayCard" id="day1">
+                    <p class="temp" id="day2TempNum"></p>
+                    <p class="wind"><span class="dayStat" id="day2WindNum"></span> mph<br>Wind Speed</p>
+                    <p class="humidity"><span class="dayStat" id="day2HumidityNum"></span> %<br>Humidity</p>
 
-            <div class="day1 headline">
-
-                <h4>Tomorrow</h4>
-                <p class="description"></p>
+                </div>
 
             </div>
 
-            <div class="day1 mainIcon">
+            <div class="dayCard" id="day1">
 
-                <img src="" alt="">
+                <h4 class="date" id="day1Date">Tomorrow</h4>
 
-            </div>
+                <div class="dayCardBody">
 
-            <div class="day1 info">
+                    <div class="dayCardHeader">
 
-                <p class="temp" id="day1TempNum"></p>
-                <p class="wind"><span class="dayStat" id="day1WindNum"></span> mph<br>Wind Speed</p>
-                <p class="humidity"><span class="dayStat" id="day1HumidityNum"></span> %<br>Humidity</p>
+                        <p class="description" id="day1Description"></p>
+                        <img id="day1Icon" src="" alt="">
+
+                    </div>
+
+
+                    <p class="temp" id="day1TempNum"></p>
+                    <p class="wind"><span class="dayStat" id="day1WindNum"></span> mph<br>Wind Speed</p>
+                    <p class="humidity"><span class="dayStat" id="day1HumidityNum"></span> %<br>Humidity</p>
+
+                </div>
 
             </div>
 

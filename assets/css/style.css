@@ -2,8 +2,9 @@
 :root {
     --light: white;
     --light2: lightgray;
-    --dark: black;
-    --dark2: rgb(190, 190, 190);
+    --dark: rgba(0, 0, 0, 0.9);
+    --dark50: rgba(0, 0, 0, 0.5);
+    --dark15: rgba(0, 0, 0, 0.15);
     --accent: steelblue;
     --accent2: rgba(70, 131, 180, 0.5);
     --overlay: rgba(0, 0, 0, 0.25);
@@ -13,28 +14,87 @@
 
 /* animations */
 @keyframes fade {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(500%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
 }
 
 @keyframes slideLeft {
-    from {transform: translateX(100%);}
-    to {transform: translateX(0%);}
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
 }
 
 @keyframes slideRight {
-    from {transform: translateX(-100%);}
-    to {transform: translateX(0%);}
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slideUp-fade {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
 }
 
 @keyframes slideLeft-fade {
-    from {transform: translateX(100px); opacity: 0;}
-    to {transform: translateX(0px); opacity: 1;}
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
 }
 
 @keyframes titleIntro {
-    from {color: var(--light);}
-    to {color: var(--dark);}
+    from {
+        color: var(--light);
+    }
+
+    to {
+        color: var(--dark);
+    }
 }
 
 /* background photos */
@@ -106,6 +166,10 @@
     color: var(--light2);
 }
 
+html {
+    animation: fade 3s 2s backwards;
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -125,10 +189,11 @@ main {
     position: absolute;
     left: 30px;
     top: 30px;
+    width: 22%;
     text-transform: capitalize;
     color: var(--dark);
     z-index: 1;
-    animation: titleIntro 1s 1.5s backwards;
+    animation: titleIntro 1s 3.5s backwards;
 }
 
 /* search panel styles */
@@ -142,7 +207,38 @@ main {
     background: var(--light);
     padding: 120px 30px 30px 30px;
     box-shadow: 0px 0px 25px var(--shadow);
-    animation: slideRight 1s 1.5s backwards;
+    animation: slideRight 1s 3.5s backwards;
+}
+
+#searchLabels {
+    display: flex;
+    justify-content: space-between;
+}
+
+#locationPinLabel {
+    opacity: 0;
+}
+
+#searchInputContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#locationPin {
+    position: relative;
+    height: 35px;
+    width: auto;
+    margin-bottom: 10px;
+    opacity: 0.9;
+    transition: 0.2s all ease-in-out;
+}
+
+#locationPin:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 input:focus {
@@ -151,13 +247,9 @@ input:focus {
 
 #searchInput {
     width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 5px;
-}
-
-#searchInput {
-    border: 1px solid var(--dark2);
+    border: none;
+    font-size: 1.8em;
+    font-weight: 500;
 }
 
 #searchButton {
@@ -168,6 +260,7 @@ input:focus {
     padding: 10px;
     margin-top: 15px;
     border-radius: 5px;
+    transition: 0.2s all ease-in-out;
 }
 
 #searchButton:hover {
@@ -176,24 +269,28 @@ input:focus {
 }
 
 button {
-    background-color: var(--dark2);
+    background-color: var(--dark);
+    color: var(--light);
     border: none;
     width: 100%;
     padding: 10px;
     margin-top: 15px;
     border-radius: 5px;
     text-transform: capitalize;
+    transition: 0.2s all ease-in-out;
 }
 
 button:hover {
     cursor: pointer;
+    background-color: var(--dark);
+    color: var(--light);
     opacity: 0.75;
 }
 
 #searchHistory {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--dark2);
+    border-top: 1px solid var(--dark50);
     margin-top: 25px;
     padding-top: 10px;
 }
@@ -204,6 +301,7 @@ button:hover {
 
 #reset {
     background-color: transparent;
+    color: var(--dark);
     width: fit-content;
     height: fit-content;
     margin: 10px auto;
@@ -227,7 +325,7 @@ button:hover {
     justify-content: flex-end;
     align-items: flex-start;
     margin: auto 0px 0px 0px;
-    animation: fade 1s 6s backwards;
+    animation: fade 1s 8s backwards;
 }
 
 #hideButton {
@@ -235,14 +333,13 @@ button:hover {
     bottom: 90px;
     left: 30px;
     width: 150px;
-    animation: fade 2s 6s backwards;
-    background-color: rgba(0, 0, 0, 0.1);
-    color: gray;
+    animation: fade 2s 8s backwards;
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 #hideButton:hover {
-    background-color: var(--dark);
-    color: var(--light);
+    opacity: 0.75;
 }
 
 #showButton {
@@ -253,15 +350,14 @@ button:hover {
     bottom: 90px;
     left: 30px;
     width: 150px;
-    animation: fade 2s 6s backwards;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: gray;
+    animation: fade 2s 8s backwards;
+    background-color: var(--dark);
+    color: var(--light);
     z-index: 5;
 }
 
 #showButton:hover {
-    background-color: var(--dark);
-    color: var(--light);
+    opacity: 0.75;
 }
 
 #openWeatherCredit {
@@ -269,7 +365,7 @@ button:hover {
     margin: 30px 0px 0px 0px;
     z-index: 100;
     color: var(--dark);
-    animation: fade 2s 6s backwards;
+    animation: fade 2s 8s backwards;
     text-align: left;
 }
 
@@ -292,30 +388,30 @@ button:hover {
 }
 
 #today h4 {
-    animation: slideLeft-fade 1s 1.5s backwards;
+    animation: slideLeft-fade 1s 3.5s backwards;
 }
 
 #today .description {
-    animation: slideLeft-fade 1s 1.6s backwards;
+    animation: slideLeft-fade 1s 3.6s backwards;
 }
 
 #today img {
-    animation: slideLeft-fade 1s 1.7s backwards;
+    animation: slideLeft-fade 1s 3.7s backwards;
     margin: -10px 0px 15px -15px;
     width: fit-content;
     height: fit-content;
 }
 
 #today .temp {
-    animation: slideLeft-fade 1s 1.8s backwards;
+    animation: slideLeft-fade 1s 3.8s backwards;
 }
 
 #today .wind {
-    animation: slideLeft-fade 1s 1.9s backwards;
+    animation: slideLeft-fade 1s 3.9s backwards;
 }
 
 #today .humidity {
-    animation: slideLeft-fade 1s 2s backwards;
+    animation: slideLeft-fade 1s 4s backwards;
 }
 
 .temp {
@@ -411,35 +507,35 @@ button:hover {
 }
 
 #day1 {
-    animation: slideLeft 2s 2.5s backwards;
+    animation: slideLeft 2s 4.5s backwards;
     z-index: 1;
     position: absolute;
     left: 50%;
 }
 
 #day2 {
-    animation: slideLeft 2s 3s backwards;
+    animation: slideLeft 2s 4.75s backwards;
     z-index: 2;
     position: absolute;
     left: 60%;
 }
 
 #day3 {
-    animation: slideLeft 2s 3.4s backwards;
+    animation: slideLeft 2s 5s backwards;
     z-index: 3;
     position: absolute;
     left: 70%;
 }
 
 #day4 {
-    animation: slideLeft 2s 3.7s backwards;
+    animation: slideLeft 2s 5.25s backwards;
     z-index: 4;
     position: absolute;
     left: 80%;
 }
 
 #day5 {
-    animation: slideLeft 2s 4s backwards;
+    animation: slideLeft 2s 5.5s backwards;
     z-index: 5;
     position: absolute;
     left: 90%;
@@ -453,7 +549,7 @@ button:hover {
     transform: translateX(-30%);
 }
 
-#day2:hover ~ div {
+#day2:hover~div {
     transform: translateX(-30%);
 }
 
@@ -461,7 +557,7 @@ button:hover {
     transform: translateX(-30%);
 }
 
-#day3:hover ~ div {
+#day3:hover~div {
     transform: translateX(-30%);
 }
 
@@ -469,7 +565,7 @@ button:hover {
     transform: translateX(-30%);
 }
 
-#day4:hover ~ div {
+#day4:hover~div {
     transform: translateX(-30%);
 }
 
@@ -477,7 +573,7 @@ button:hover {
     transform: translateX(-30%);
 }
 
-#day5:hover ~ div {
+#day5:hover~div {
     transform: translateX(-30%);
 }
 
@@ -487,23 +583,335 @@ button:hover {
     height: fit-content;
 }
 
+/* medium screens */
+@media screen and (max-width: 1800px) {
+
+    * {
+        font-size: 14px;
+    }
+
+}
+
+/* small screens */
+@media screen and (max-width: 1600px) {
+
+    * {
+        font-size: 12px;
+    }
+
+}
+
 /* tablets */
-@media screen and (max-width: 1350px) {
+@media screen and (max-width: 1400px) {
 
+    * {
+        font-size: 16px;
+    }
 
+    main {
+        flex-direction: column;
+        justify-content: space-between;
+        height: 180vh;
+        scroll-snap-type: y mandatory;
+    }
+
+    main div {
+        scroll-snap-align: start;
+    }
+
+    #city {
+        width: 90%;
+    }
+
+    #citySelect {
+        position: static;
+        height: auto;
+        width: 100%;
+        background: var(--light);
+        padding: 120px 30px 15px 30px;
+        box-shadow: 0px 0px 25px var(--shadow);
+        animation: slideDown 1s 3.5s backwards;
+    }
+
+    #searchHistory {
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    button {
+        width: auto;
+        min-width: 49%;
+    }
+
+    button {
+        margin: 15px 0px 0px 0px;
+    }
+
+    #reset {
+        margin: 15px auto 0px auto;
+    }
+
+    #openWeatherCredit {
+        color: var(--light);
+        position: absolute;
+        top: 181vh;
+        justify-self: center;
+        align-self: center;
+        margin: 0px;
+        animation: none;
+        text-align: center;
+    }
+
+    #hideButton {
+        display: none;
+    }
+
+    #today {
+        display: flex;
+        flex-direction: column;
+        position: static;
+        padding: 30px 30px 30px 30px;
+        color: var(--light);
+        height: auto;
+        flex-grow: 1;
+        width: 100%;
+    }
+
+    #todayBody {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    #today h4 {
+        animation: slideUp-fade 1s 3.5s backwards;
+    }
+
+    #today .description {
+        animation: slideUp-fade 1s 3.6s backwards;
+    }
+
+    #today img {
+        animation: slideUp-fade 1s 3.7s backwards;
+        margin: -10px 0px 15px -15px;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    #today .temp {
+        animation: slideUp-fade 1s 3.8s backwards;
+    }
+
+    #today .wind {
+        animation: slideUp-fade 1s 3.9s backwards;
+    }
+
+    #today .humidity {
+        animation: slideUp-fade 1s 4s backwards;
+    }
+
+    .temp {
+        margin: 15px 0px 0px 60px;
+    }
+
+    .description {
+        margin-top: 15px;
+    }
+
+    .wind,
+    .humidity {
+        margin-top: 15px;
+        margin-left: 60px;
+    }
+
+    #uvIndex {
+        justify-content: flex-end;
+        margin: 30px 0px 0px 0px;
+    }
+
+    #uv {
+        font-size: 1em;
+        font-weight: 500;
+        margin: 0px 10px;
+    }
+
+    #uvStatus {
+        opacity: 0.5;
+    }
+
+    /* forecast */
+    #forecast {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: 100vh;
+        flex-shrink: 1;
+    }
+
+    .dayCard {
+        padding: 30px 30px;
+        height: 25vh;
+        width: 100%;
+    }
+
+    .dayCardBody {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    #day1 {
+        animation: slideUp 2s 4.5s backwards;
+        position: absolute;
+        left: 0%;
+        bottom: -5vh;
+    }
+
+    #day2 {
+        animation: slideUp 2s 4.75s backwards;
+        position: absolute;
+        left: 0%;
+        bottom: -25vh;
+    }
+
+    #day3 {
+        animation: slideUp 2s 5s backwards;
+        position: absolute;
+        left: 0%;
+        bottom: -45vh;
+    }
+
+    #day4 {
+        animation: slideUp 2s 5.25s backwards;
+        position: absolute;
+        left: 0%;
+        bottom: -65vh;
+    }
+
+    #day5 {
+        animation: slideUp 2s 5.5s backwards;
+        position: absolute;
+        left: 0%;
+        bottom: -85vh;
+    }
+
+    #day1:hover {
+        transform: translateX(0%);
+    }
+
+    #day2:hover {
+        transform: translateX(0%);
+    }
+
+    #day2:hover~div {
+        transform: translateX(0%);
+    }
+
+    #day3:hover {
+        transform: translateX(0%);
+    }
+
+    #day3:hover~div {
+        transform: translateX(0%);
+    }
+
+    #day4:hover {
+        transform: translateX(0%);
+    }
+
+    #day4:hover~div {
+        transform: translateX(0%);
+    }
+
+    #day5:hover {
+        transform: translateX(0%);
+    }
+
+    #day5:hover~div {
+        transform: translateX(0%);
+    }
+
+    .dayCard img {
+        margin: -10px 0px 15px -15px;
+        width: fit-content;
+        height: fit-content;
+    }
 
 }
 
 /* large phones */
 @media screen and (max-width: 768px) {
 
+    * {
+        font-size: 10px;
+    }
 
+    #city {
+        top: 20px;
+        left: 20px;
+    }
+
+    #citySelect {
+        padding: 90px 20px 10px 20px;
+    }
+
+    #searchInputContainer {
+        margin-top: 10px;
+    }
+
+    #locationPin {
+        height: 30px;
+    }
+
+    #searchButton {
+        margin-top: 10px;
+    }
+
+    #searchHistory {
+        margin-top: 10px;
+        padding-top: 0px;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+
+    #reset {
+        margin: 10px auto 0px auto;
+    }
+
+    #todayBody {
+        justify-content: space-between;
+    }
+
+    #today img,
+    .dayCard img {
+        margin: -5px 0px 15px -15px;
+        width: 75px;
+        height: 75px;
+    }
+
+    .temp {
+        margin: 10px 0px 0px auto;
+    }
+
+    .description {
+        margin-top: 10px;
+    }
+
+    .wind,
+    .humidity {
+        margin-top: 10px;
+        margin-left: auto;
+    }
+
+    #uvIndex {
+        justify-content: flex-end;
+        margin: auto auto 0px 0px;
+    }
 
 }
 
 /* small phones */
-@media screen and (max-width: 576px) {
-
-    
-
-}
+@media screen and (max-width: 576px) {}

@@ -2,25 +2,20 @@
 var searchButton = $('#searchButton');
 var clearButton = $('#reset');
 
-var today = $('#today');
-var headline = $('#headline');
-var info = $('#info');
 var searchDisplay = $('#searchHistory');
 var searchHistory = JSON.parse(localStorage.getItem('WD Search History'));
 var searchPanelStatus = JSON.parse(localStorage.getItem('WD Search Panel Status'));
 
-var day1 = $('.day1');
-var day2 = $('.day2');
-var day3 = $('.day3');
-var day4 = $('.day4');
-var day5 = $('.day5');
+var city;
+var state;
+var lat;
+var lng;
+var cityState = 'New York, NY';
 
-// set city to display before search
-if (!searchHistory) {
-    var city = 'New York';
-} else {
-    var city = searchHistory[0];
-}
+var userSearch;
+
+var googleApiKey = 'AIzaSyD_lf7GY2YK4mCnRfG39dYavgZBlxrLJzU';
+var weatherApiKey = '4cbbd8edff2f69559a34c2c07e801771';
 
 // remember search panel position
 if (searchPanelStatus == 'hidden') {
@@ -28,304 +23,6 @@ if (searchPanelStatus == 'hidden') {
     $('#city').css('animation', 'none');
     hideSearch();
 };
-
-console.log(searchPanelStatus);
-
-// collect weather data and display on page
-function getWeather() {
-
-    var apiKey = '4cbbd8edff2f69559a34c2c07e801771';
-
-    // today's weather
-    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
-
-    fetch(queryURL)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-
-            console.log(data);
-
-            var lat = data.coord.lat;
-            var lon = data.coord.lon;
-
-            var uvQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-            fetch(uvQuery)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-
-                    console.log(data);
-
-                    // change theme based on sunrise and sunset
-                    var sunrise = data.current.sunrise;
-                    var sunset = data.current.sunset;
-                    var currentTime = Date.now();
-
-                    if (currentTime < sunrise && currentTime > sunset) {
-                        $('body').css('background-color', 'var(--dark')
-                        $('#citySelect').addClass('nightMode');
-                        document.documentElement.style.setProperty('--overlay', 'rgba(0, 0, 0, 0.5)');
-                    };
-
-                    var uv = data.current.uvi;
-                    var uvStatus;
-
-                    $('#uv').text(uv);
-
-                    if (uv < 2) {
-                        $('#uv').addClass('uvSafe');
-                        uvStatus = 'Safe';
-                    } else if (uv < 6) {
-                        $('#uv').addClass('uvModerate');
-                        uvStatus = 'Moderate';
-                    } else if (uv < 8) {
-                        $('#uv').addClass('uvHigh');
-                        uvStatus = 'High';
-                    } else if (uv < 11) {
-                        $('#uv').addClass('uvVeryHigh');
-                        uvStatus = 'Very High';
-                    } else {
-                        $('#uv').addClass('uvExtreme');
-                        uvStatus = 'Extreme';
-                    };
-
-                    $('#uvStatus').text(uvStatus)
-
-                })
-
-            var temp = Math.round(data.main.temp);
-            var wind = Math.round(data.wind.speed);
-            var humidity = Math.round(data.main.humidity);
-            var iconCode = data.weather[0].icon;
-            var description = data.weather[0].description;
-            var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-            $('#city').text(city);
-            $('#todayHeader').children('.description').text(description);
-            $('#todayHeader').children('img').attr({ 'src': iconURL, 'alt': description });
-            $('#todayTempNum').text(`${temp}°`);
-            $('#todayWindNum').text(`${wind}`);
-            $('#todayHumidityNum').text(`${humidity}`);
-
-            // background photos
-            if (description == 'clear sky') {
-                $('body').attr('class', 'clearSky')
-            } else if (description == 'mist') {
-                $('body').attr('class', 'mist')
-            } else if (description == 'few clouds') {
-                $('body').attr('class', 'fewClouds')
-            } else if (description == 'scattered clouds') {
-                $('body').attr('class', 'scatteredClouds')
-            } else if (description == 'broken clouds') {
-                $('body').attr('class', 'brokenClouds')
-            } else if (description == 'overcast clouds') {
-                $('body').attr('class', 'overcastClouds')
-            } else if (description == 'light intensity drizzle') {
-                $('body').attr('class', 'lightIntensityDrizzle')
-            } else if (description == 'light rain') {
-                $('body').attr('class', 'lightRain')
-            } else if (description == 'moderate rain') {
-                $('body').attr('class', 'moderateRain')
-            }
-
-        });
-
-    // 5-day forecast
-    var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
-
-    fetch(queryURL)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-
-            // day 1
-            var temp = Math.round(data.list[0].main.temp);
-            var wind = Math.round(data.list[0].wind.speed);
-            var humidity = Math.round(data.list[0].main.humidity);
-            var iconCode = data.list[0].weather[0].icon;
-            var description = data.list[0].weather[0].description;
-            var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-            day1.children('.description').text(description);
-            day1.children('img').attr({ 'src': iconURL, 'alt': description });
-            $('#day1TempNum').text(`${temp}°`);
-            $('#day1WindNum').text(`${wind}`);
-            $('#day1HumidityNum').text(`${humidity}`);
-
-            if (description == 'clear sky') {
-                $('#day1').attr('class', 'dayCard clearSky')
-            } else if (description == 'mist') {
-                $('#day1').attr('class', 'dayCard mist')
-            } else if (description == 'few clouds') {
-                $('#day1').attr('class', 'dayCard fewClouds')
-            } else if (description == 'scattered clouds') {
-                $('#day1').attr('class', 'dayCard scatteredClouds')
-            } else if (description == 'broken clouds') {
-                $('#day1').attr('class', 'dayCard brokenClouds')
-            } else if (description == 'overcast clouds') {
-                $('#day1').attr('class', 'dayCard overcastClouds')
-            } else if (description == 'light intensity drizzle') {
-                $('#day1').attr('class', 'dayCard lightIntensityDrizzle')
-            } else if (description == 'light rain') {
-                $('#day1').attr('class', 'dayCard lightRain')
-            } else if (description == 'moderate rain') {
-                $('#day1').attr('class', 'dayCard moderateRain')
-            }
-
-            // day 2
-            var date = moment().add(2, 'days').format('dddd');
-            var temp = Math.round(data.list[1].main.temp);
-            var wind = Math.round(data.list[1].wind.speed);
-            var humidity = Math.round(data.list[1].main.humidity);
-            var iconCode = data.list[1].weather[0].icon;
-            var description = data.list[1].weather[0].description;
-            var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-            day2.children('.description').text(description);
-            day2.children('img').attr({ 'src': iconURL, 'alt': description });
-            day2.children('.date').text(date);
-            $('#day2TempNum').text(`${temp}°`);
-            $('#day2WindNum').text(`${wind}`);
-            $('#day2HumidityNum').text(`${humidity}`);
-
-            if (description == 'clear sky') {
-                $('#day2').attr('class', 'dayCard clearSky')
-            } else if (description == 'mist') {
-                $('#day2').attr('class', 'dayCard mist')
-            } else if (description == 'few clouds') {
-                $('#day2').attr('class', 'dayCard fewClouds')
-            } else if (description == 'scattered clouds') {
-                $('#day2').attr('class', 'dayCard scatteredClouds')
-            } else if (description == 'broken clouds') {
-                $('#day2').attr('class', 'dayCard brokenClouds')
-            } else if (description == 'overcast clouds') {
-                $('#day2').attr('class', 'dayCard overcastClouds')
-            } else if (description == 'light intensity drizzle') {
-                $('#day2').attr('class', 'dayCard lightIntensityDrizzle')
-            } else if (description == 'light rain') {
-                $('#day2').attr('class', 'dayCard lightRain')
-            } else if (description == 'moderate rain') {
-                $('#day2').attr('class', 'dayCard moderateRain')
-            }
-
-            // day 3
-            var date = moment().add(3, 'days').format('dddd');
-            var temp = Math.round(data.list[2].main.temp);
-            var wind = Math.round(data.list[2].wind.speed);
-            var humidity = Math.round(data.list[2].main.humidity);
-            var iconCode = data.list[2].weather[0].icon;
-            var description = data.list[2].weather[0].description;
-            var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-            day3.children('.description').text(description);
-            day3.children('img').attr({ 'src': iconURL, 'alt': description });
-            day3.children('.date').text(date);
-            $('#day3TempNum').text(`${temp}°`);
-            $('#day3WindNum').text(`${wind}`);
-            $('#day3HumidityNum').text(`${humidity}`);
-
-            if (description == 'clear sky') {
-                $('#day3').attr('class', 'dayCard clearSky')
-            } else if (description == 'mist') {
-                $('#day3').attr('class', 'dayCard mist')
-            } else if (description == 'few clouds') {
-                $('#day3').attr('class', 'dayCard fewClouds')
-            } else if (description == 'scattered clouds') {
-                $('#day3').attr('class', 'dayCard scatteredClouds')
-            } else if (description == 'broken clouds') {
-                $('#day3').attr('class', 'dayCard brokenClouds')
-            } else if (description == 'overcast clouds') {
-                $('#day3').attr('class', 'dayCard overcastClouds')
-            } else if (description == 'light intensity drizzle') {
-                $('#day3').attr('class', 'dayCard lightIntensityDrizzle')
-            } else if (description == 'light rain') {
-                $('#day3').attr('class', 'dayCard lightRain')
-            } else if (description == 'moderate rain') {
-                $('#day3').attr('class', 'dayCard moderateRain')
-            }
-
-            // day 4
-            var date = moment().add(4, 'days').format('dddd');
-            var temp = Math.round(data.list[3].main.temp);
-            var wind = Math.round(data.list[3].wind.speed);
-            var humidity = Math.round(data.list[3].main.humidity);
-            var iconCode = data.list[3].weather[0].icon;
-            var description = data.list[3].weather[0].description;
-            var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-            day4.children('.description').text(description);
-            day4.children('img').attr({ 'src': iconURL, 'alt': description });
-            day4.children('.date').text(date);
-            $('#day4TempNum').text(`${temp}°`);
-            $('#day4WindNum').text(`${wind}`);
-            $('#day4HumidityNum').text(`${humidity}`);
-
-            if (description == 'clear sky') {
-                $('#day4').attr('class', 'dayCard clearSky')
-            } else if (description == 'mist') {
-                $('#day4').attr('class', 'dayCard mist')
-            } else if (description == 'few clouds') {
-                $('#day4').attr('class', 'dayCard fewClouds')
-            } else if (description == 'scattered clouds') {
-                $('#day4').attr('class', 'dayCard scatteredClouds')
-            } else if (description == 'broken clouds') {
-                $('#day4').attr('class', 'dayCard brokenClouds')
-            } else if (description == 'overcast clouds') {
-                $('#day4').attr('class', 'dayCard overcastClouds')
-            } else if (description == 'light intensity drizzle') {
-                $('#day4').attr('class', 'dayCard lightIntensityDrizzle')
-            } else if (description == 'light rain') {
-                $('#day4').attr('class', 'dayCard lightRain')
-            } else if (description == 'moderate rain') {
-                $('#day4').attr('class', 'dayCard moderateRain')
-            }
-
-            // day 5
-            var date = moment().add(5, 'days').format('dddd');
-            var temp = Math.round(data.list[4].main.temp);
-            var wind = Math.round(data.list[4].wind.speed);
-            var humidity = Math.round(data.list[4].main.humidity);
-            var iconCode = data.list[4].weather[0].icon;
-            var description = data.list[4].weather[0].description;
-            var iconURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-            day5.children('.description').text(description);
-            day5.children('img').attr({ 'src': iconURL, 'alt': description });
-            day5.children('.date').text(date);
-            $('#day5TempNum').text(`${temp}°`);
-            $('#day5WindNum').text(`${wind}`);
-            $('#day5HumidityNum').text(`${humidity}`);
-
-            if (description == 'clear sky') {
-                $('#day5').attr('class', 'dayCard clearSky')
-            } else if (description == 'mist') {
-                $('#day5').attr('class', 'dayCard mist')
-            } else if (description == 'few clouds') {
-                $('#day5').attr('class', 'dayCard fewClouds')
-            } else if (description == 'scattered clouds') {
-                $('#day5').attr('class', 'dayCard scatteredClouds')
-            } else if (description == 'broken clouds') {
-                $('#day5').attr('class', 'dayCard brokenClouds')
-            } else if (description == 'overcast clouds') {
-                $('#day5').attr('class', 'dayCard overcastClouds')
-            } else if (description == 'light intensity drizzle') {
-                $('#day5').attr('class', 'dayCard lightIntensityDrizzle')
-            } else if (description == 'light rain') {
-                $('#day5').attr('class', 'dayCard lightRain')
-            } else if (description == 'moderate rain') {
-                $('#day5').attr('class', 'dayCard moderateRain')
-            }
-
-        });
-
-};
-
-getWeather();
 
 // add saved searches to the page
 function displaySearches() {
@@ -352,55 +49,238 @@ if (!searchHistory) {
 // save search to local storage
 function saveSearch() {
 
-    if (!searchHistory) {
-
-        searchHistory = [city];
-        localStorage.setItem('WD Search History', JSON.stringify([city]));
-        displaySearches();
-        clearButton.show();
-
-    } else if (searchHistory.length == 8) {
+    if (searchHistory) {
 
         searchHistory = searchHistory.filter(function (value) {
-            return value !== city;
+            return value !== cityState;
         });
 
-        searchHistory.pop();
-        searchHistory.unshift(city);
-        localStorage.setItem('WD Search History', JSON.stringify(searchHistory));
-        displaySearches();
+        if (searchHistory.length == 8) {
+
+            searchHistory.pop();
+            searchHistory.unshift(cityState);
+            localStorage.setItem('WD Search History', JSON.stringify(searchHistory));
+            displaySearches();
+            clearButton.show();
+
+        } else {
+
+            searchHistory.unshift(cityState);
+            localStorage.setItem('WD Search History', JSON.stringify(searchHistory));
+            displaySearches();
+            clearButton.show();
+
+        };
 
     } else {
 
-        searchHistory = searchHistory.filter(function (value) {
-            return value !== city;
-        });
-
-        searchHistory.unshift(city);
-        localStorage.setItem('WD Search History', JSON.stringify(searchHistory));
+        searchHistory = [cityState];
+        localStorage.setItem('WD Search History', JSON.stringify([cityState]));
         displaySearches();
+        clearButton.show();
 
     };
 
 };
 
+// set background images
+function setBackground(section, container, description) {
+    if (description == 'clear sky') {
+        $(container).attr('class', `${section} clearSky`)
+    } else if (description == 'mist') {
+        $(container).attr('class', `${section} mist`)
+    } else if (description == 'few clouds') {
+        $(container).attr('class', `${section} fewClouds`)
+    } else if (description == 'scattered clouds') {
+        $(container).attr('class', `${section} scatteredClouds`)
+    } else if (description == 'broken clouds') {
+        $(container).attr('class', `${section} brokenClouds`)
+    } else if (description == 'overcast clouds') {
+        $(container).attr('class', `${section} overcastClouds`)
+    } else if (description == 'light intensity drizzle') {
+        $(container).attr('class', `${section} lightIntensityDrizzle`)
+    } else if (description == 'light rain') {
+        $(container).attr('class', `${section} lightRain`)
+    } else if (description == 'moderate rain') {
+        $(container).attr('class', `${section} moderateRain`)
+    };
+};
+
+function getWeather() {
+
+    var weatherQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=imperial&appid=${weatherApiKey}`;
+
+    fetch(weatherQuery)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+
+            // current weather
+            var currentTemp = Math.round(data.current.temp);
+            var currentWind = Math.round(data.current.wind_speed);
+            var currentHumidity = Math.round(data.current.humidity);
+            var currentDescription = data.current.weather[0].description;
+            var currentIconCode = data.current.weather[0].icon;
+            var currentIconURL = `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`;
+            var uv = data.current.uvi;
+            var uvStatus;
+
+            $('#city').text(cityState);
+            $('#todayHeader').children('.description').text(currentDescription);
+            $('#todayHeader').children('img').attr({ 'src': currentIconURL, 'alt': currentDescription });
+            $('#todayTempNum').text(`${currentTemp}°`);
+            $('#todayWindNum').text(`${currentWind}`);
+            $('#todayHumidityNum').text(`${currentHumidity}`);
+
+            // current uv data
+            $('#uv').text(uv);
+
+            if (uv < 2) {
+                $('#uv').addClass('uvSafe');
+                uvStatus = 'Safe';
+            } else if (uv < 6) {
+                $('#uv').addClass('uvModerate');
+                uvStatus = 'Moderate';
+            } else if (uv < 8) {
+                $('#uv').addClass('uvHigh');
+                uvStatus = 'High';
+            } else if (uv < 11) {
+                $('#uv').addClass('uvVeryHigh');
+                uvStatus = 'Very High';
+            } else {
+                $('#uv').addClass('uvExtreme');
+                uvStatus = 'Extreme';
+            };
+
+            $('#uvStatus').text(uvStatus);
+
+            // set body background
+            setBackground('', 'body', currentDescription);
+
+            for (let i = 1; i < 6; i++) {
+
+                // 5 day forecast
+                var forecastTemp = Math.round(data.daily[i].temp.day);
+                var forecastWind = Math.round(data.daily[i].wind_speed);
+                var forecastHumidity = Math.round(data.daily[i].humidity);
+                var forecastDescription = data.daily[i].weather[0].description;
+                var forecastIconCode = data.daily[i].weather[0].icon;
+                var forecastIconURL = `https://openweathermap.org/img/wn/${forecastIconCode}@2x.png`;
+
+                $(`#day${i}TempNum`).text(`${forecastTemp}°`);
+                $(`#day${i}WindNum`).text(`${forecastWind}`);
+                $(`#day${i}HumidityNum`).text(`${forecastHumidity}`);
+                $(`#day${i}Description`).text(forecastDescription);
+                $(`#day${i}Icon`).attr({ 'src': forecastIconURL, 'alt': forecastDescription });
+
+                // set forecast background
+                setBackground('dayCard', `#day${i}`, forecastDescription,);
+
+                // set weekday
+                if (i > 1) {
+                    setDay = moment().add(i, 'days').format('dddd');
+                    $(`#day${i}Date`).text(setDay);
+                };
+
+            }
+
+
+        });
+
+};
+
+// get location from user search
+function searchLocation() {
+
+    var encodedAddress = encodeURIComponent(userSearch).replace(/%20/g, "+");
+    var addressQuery = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${googleApiKey}`;
+
+    fetch(addressQuery)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            city = data.results[0].address_components[0].short_name;
+            state = data.results[0].address_components[2].short_name;
+            lat = data.results[0].geometry.location.lat
+            lng = data.results[0].geometry.location.lng;
+            // cityState = `${city}, ${state}`;
+            cityState = data.results[0].formatted_address.replace(', USA', '');
+
+            console.log(encodedAddress);
+            console.log(data);
+
+            getWeather();
+            saveSearch();
+        });
+
+};
+
+// Geolocation
+function currentLocation() {
+
+    function success(position) {
+
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+
+        // get city from lat/lng
+        var coordQuery = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${googleApiKey}`;
+        fetch(coordQuery)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                cityState = data.results[9].formatted_address.replace(', USA', '');
+
+                saveSearch();
+                getWeather();
+            });
+
+    };
+
+    function error() {
+
+        $('#locationPin').css('opacity', '0.5');
+        $('#locationPin').css('cursor', 'default');
+        $('#locationPinLabel').text('Current location unavailable');
+
+    }
+
+    if (!navigator.geolocation) {
+
+        if (!searchHistory) {
+            lat = '40.7127753';
+            lng = '-74.0059728'
+            getWeather();
+        } else {
+            cityState = searchHistory[0];
+            searchLocation();
+        };
+
+    } else {
+        navigator.geolocation.getCurrentPosition(success, error);
+    };
+
+};
+
+currentLocation();
+
 // listen for search button click
-searchButton.click(function(event) {
+searchButton.click(function (event) {
 
     event.preventDefault();
 
     // generate weather report
-    city = $('#searchInput').val().trim();
+    userSearch = $('#searchInput').val().trim();
 
-    if (!city) {
+    if (!userSearch) {
         return;
     } else {
-        getWeather();
+        searchLocation();
+        $('#searchInput').val("");
     };
-
-    saveSearch();
-
-    $('#searchInput').val("");
 
 });
 
@@ -420,9 +300,8 @@ $('#searchInput').on("keyup", function (event) {
 $('#searchHistory').click(function (event) {
 
     // generate weather report
-    city = $(event.target).text();
-    getWeather();
-    saveSearch();
+    userSearch = $(event.target).text();
+    searchLocation();
 
 });
 
@@ -431,6 +310,7 @@ clearButton.click(function () {
 
     localStorage.removeItem('WD Search History');
     searchDisplay.children().remove();
+    searchHistory = [];
     clearButton.hide();
 
 });
@@ -441,6 +321,7 @@ function hideSearch() {
     $('#citySelect').addClass('hideSearchPanel');
     $('#today').css('left', '0%');
     $('#todayBody').css('margin-left', '60px');
+    $('#today h4').css('margin-left', '60px');
     $('#city').css('color', 'white');
 
     // hide and show button animation
@@ -452,7 +333,7 @@ function hideSearch() {
 
 };
 
-$('#hideButton').click(function(event) {
+$('#hideButton').click(function (event) {
 
     event.preventDefault();
     $('#showButton').css('animation', 'none');
@@ -460,7 +341,7 @@ $('#hideButton').click(function(event) {
 
 });
 
-$('#showButton').click(function(event) {
+$('#showButton').click(function (event) {
 
     event.preventDefault();
 
@@ -478,26 +359,26 @@ $('#showButton').click(function(event) {
 
 });
 
-// Geolocation
-function geolocation() {
+// location pin clicks
+$('#locationPin').click(function (event) {
 
-    function success(position) {
-      const latitude  = position.coords.latitude;
-      const longitude = position.coords.longitude;
+    event.preventDefault();
+    currentLocation();
 
-      console.log(latitude, longitude);
-    }
-  
-    function error() {
-      
-    }
-  
-    if(!navigator.geolocation) {
-      $('#geolocation').hide();
-    } else {
-      navigator.geolocation.getCurrentPosition(success, error);
-    };
+});
 
+// location pin hover
+$('#locationPin').mouseover(function () {
+    $('#locationPinLabel').css('opacity', '0.5');
+});
+
+$('#locationPin').mouseout(function () {
+    $('#locationPinLabel').css('opacity', '0');
+});
+
+// set location to New York if there's no search history or geolocation
+if (!searchHistory) {
+    lat = '40.7127753';
+    lng = '-74.0059728'
+    getWeather();
 };
-
-geolocation();
