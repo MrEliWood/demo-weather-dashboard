@@ -621,6 +621,8 @@ button:hover {
 
     #city {
         width: 90%;
+        left: 30px;
+        top: 70px;
     }
 
     #citySelect {
@@ -628,7 +630,7 @@ button:hover {
         height: auto;
         width: 100%;
         background: var(--light);
-        padding: 120px 30px 15px 30px;
+        padding: 160px 30px 15px 30px;
         box-shadow: 0px 0px 25px var(--shadow);
         animation: slideDown 1s 3.5s backwards;
     }
@@ -664,7 +666,26 @@ button:hover {
     }
 
     #hideButton {
-        display: none;
+        position: absolute;
+        top: 0px;
+        bottom: auto;
+        left: 0;
+        z-index: 100;
+        border-radius: 0px;
+        width: 100%;
+        margin-top: 0px;
+        animation: slideDown 1s 3.5s backwards;
+    }
+
+    #showButton {
+        position: absolute;
+        top: 0px;
+        bottom: auto;
+        left: 0;
+        z-index: 100;
+        border-radius: 0px;
+        width: 100%;
+        margin-top: 0px;
     }
 
     #today {
