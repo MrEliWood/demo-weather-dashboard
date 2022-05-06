@@ -9,8 +9,6 @@ var searchDisplay = $('#searchHistory');
 var searchHistory = JSON.parse(localStorage.getItem('WD Search History'));
 var searchPanelStatus = JSON.parse(localStorage.getItem('WD Search Panel Status'));
 
-var city;
-var state;
 var lat;
 var lng;
 var cityState = 'New York, NY';
