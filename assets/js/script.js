@@ -1,3 +1,6 @@
+// import modules
+require('dotenv').config();
+
 // define variables
 var searchButton = $('#searchButton');
 var clearButton = $('#reset');
@@ -14,8 +17,8 @@ var cityState = 'New York, NY';
 
 var userSearch;
 
-var googleApiKey = 'AIzaSyD_lf7GY2YK4mCnRfG39dYavgZBlxrLJzU';
-var weatherApiKey = '4cbbd8edff2f69559a34c2c07e801771';
+var googleApiKey = process.env.GOOGLE_API_KEY;
+var weatherApiKey = process.env.WEATHER_API_KEY;
 
 // remember search panel position
 if (searchPanelStatus == 'hidden') {
