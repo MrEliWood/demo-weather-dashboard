@@ -329,6 +329,7 @@ button:hover {
 }
 
 #hideButton {
+    content: "Hide Search ←";
     position: absolute;
     bottom: 75px;
     left: 30px;
@@ -336,6 +337,10 @@ button:hover {
     animation: fade 2s 8s backwards;
     background-color: var(--dark);
     color: var(--light);
+}
+
+#hideButton:before {
+    content: "Hide Search ←";
 }
 
 #hideButton:hover {
@@ -354,6 +359,10 @@ button:hover {
     background-color: var(--dark);
     color: var(--light);
     z-index: 5;
+}
+
+#showButton:before {
+    content: "Show Search →";
 }
 
 #showButton:hover {
@@ -626,8 +635,8 @@ button:hover {
     }
 
     #citySelect {
-        position: static;
-        height: auto;
+        position: absolute;
+        height: 34vh;
         width: 100%;
         background: var(--light);
         padding: 160px 30px 15px 30px;
@@ -636,6 +645,7 @@ button:hover {
     }
 
     #searchHistory {
+        display: none;
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -655,9 +665,8 @@ button:hover {
     }
 
     #openWeatherCredit {
-        color: var(--light);
         position: absolute;
-        top: 181vh;
+        top: 30vh;
         justify-self: center;
         align-self: center;
         margin: 0px;
@@ -677,6 +686,10 @@ button:hover {
         animation: slideDown 1s 3.5s backwards;
     }
 
+    #hideButton:before {
+        content: "Hide Search ↑";
+    }
+
     #showButton {
         position: absolute;
         top: 0px;
@@ -688,13 +701,20 @@ button:hover {
         margin-top: 0px;
     }
 
+    #showButton:before {
+        content: "Show Search ↓";
+    }
+
     #today {
         display: flex;
         flex-direction: column;
-        position: static;
+        position: absolute;
+        top: 34vh;
+        left: 0;
+        justify-self: flex-start;
         padding: 30px 30px 30px 30px;
         color: var(--light);
-        height: auto;
+        height: 46vh;
         flex-grow: 1;
         width: 100%;
     }
@@ -747,7 +767,6 @@ button:hover {
     }
 
     #uvIndex {
-        justify-content: flex-end;
         margin: 30px 0px 0px 0px;
     }
 
