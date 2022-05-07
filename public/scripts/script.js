@@ -205,9 +205,6 @@ function searchLocation() {
             // cityState = `${city}, ${state}`;
             cityState = data.results[0].formatted_address.replace(', USA', '');
 
-            console.log(encodedAddress);
-            console.log(data);
-
             getWeather();
             saveSearch();
         });
@@ -229,7 +226,6 @@ function currentLocation() {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data)
                 cityState = data.results[9].formatted_address.replace(', USA', '');
 
                 saveSearch();
@@ -389,10 +385,8 @@ fetch('/apikeys')
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
         googleApiKey = data[0].googleApiKey;
         weatherApiKey = data[0].weatherApiKey;
-        console.log(googleApiKey, weatherApiKey);
 
         // set location to New York if there's no search history or geolocation
         if (!searchHistory) {
@@ -403,6 +397,6 @@ fetch('/apikeys')
 
         currentLocation();
     })
-    .catch(function (error) {
+    .catch(function () {
         alert('Unable to load weather data.');
     })

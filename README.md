@@ -13,6 +13,6 @@ The 5 day forcast includes temperature, wind speed, and humidity.
 Weather data is provided by https://openweathermap.org/.
 
 View a live demo of the weather dashboard here:<br>
-https://mreliwood.github.io/homework-weather-dashboard/
+https://custom-weather-dashboard.herokuapp.com
 
 ![Screenshot of weather dashboard](./assets/images/Screen%20Shot%202022-04-11%20at%209.39.30%20PM.png)
