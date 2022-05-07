@@ -1,6 +1,3 @@
-// import modules
-require('dotenv').config();
-
 // define variables
 var searchButton = $('#searchButton');
 var clearButton = $('#reset');
@@ -15,8 +12,8 @@ var cityState = 'New York, NY';
 
 var userSearch;
 
-var googleApiKey = process.env.GOOGLE_API_KEY;
-var weatherApiKey = process.env.WEATHER_API_KEY;
+var googleApiKey;
+var weatherApiKey;
 
 // remember search panel position
 if (searchPanelStatus == 'hidden') {
@@ -232,6 +229,7 @@ function currentLocation() {
                 return response.json();
             })
             .then(function (data) {
+                console.log(data)
                 cityState = data.results[9].formatted_address.replace(', USA', '');
 
                 saveSearch();
@@ -264,8 +262,6 @@ function currentLocation() {
     };
 
 };
-
-currentLocation();
 
 // listen for search button click
 searchButton.click(function (event) {
@@ -326,7 +322,7 @@ function hideSearch() {
         $('#todayBody').css('margin-left', '60px');
         $('#today h4').css('margin-left', '60px');
     };
-    
+
     $('#city').css('color', 'white');
 
     // hide and show button animation
@@ -387,9 +383,26 @@ $('#locationPin').mouseout(function () {
     $('#locationPinLabel').css('opacity', '0');
 });
 
-// set location to New York if there's no search history or geolocation
-if (!searchHistory) {
-    lat = '40.7127753';
-    lng = '-74.0059728'
-    getWeather();
-};
+// fetch api keys
+fetch('/apikeys')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+        googleApiKey = data[0].googleApiKey;
+        weatherApiKey = data[0].weatherApiKey;
+        console.log(googleApiKey, weatherApiKey);
+
+        // set location to New York if there's no search history or geolocation
+        if (!searchHistory) {
+            lat = '40.7127753';
+            lng = '-74.0059728'
+            getWeather();
+        };
+
+        currentLocation();
+    })
+    .catch(function (error) {
+        alert('Unable to load weather data.');
+    })

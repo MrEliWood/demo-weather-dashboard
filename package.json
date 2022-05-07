@@ -1,17 +1,28 @@
 {
-  "name": "module-13-challenge-orm",
+  "name": "weather-dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "/js/script.js",
+  "description": "The weather dashboard is a simple display of the current weather and a 5-day forecast.",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "node": "^17.7.2",
+    "node-bin-setup": "^1.1.0",
+    "nodemon": "^2.0.16",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrEliWood/weather-dashboard"
+    "url": "git+https://github.com/MrEliWood/homework-weather-dashboard.git"
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "dotenv": "^16.0.0",
-    "node": "^17.7.2"
-  }
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrEliWood/homework-weather-dashboard/issues"
+  },
+  "homepage": "https://github.com/MrEliWood/homework-weather-dashboard#readme"
 }
