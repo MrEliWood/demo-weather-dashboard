@@ -2,7 +2,7 @@
   "name": "module-13-challenge-orm",
   "version": "1.0.0",
   "description": "",
-  "main": "./index.html",
+  "main": "/js/script.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MrEliWood/weather-dashboard"
