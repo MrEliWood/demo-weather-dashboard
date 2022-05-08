@@ -240,17 +240,26 @@ function currentLocation() {
         $('#locationPin').css('cursor', 'default');
         $('#locationPinLabel').text('Current location unavailable');
 
+        if (!searchHistory) {
+            userSearch = 'New York';
+            searchLocation();
+        } else {
+            userSearch = searchHistory[0];
+            searchLocation();
+            console.log(userSearch, searchHistory)
+        };
+
     }
 
     if (!navigator.geolocation) {
 
         if (!searchHistory) {
-            lat = '40.7127753';
-            lng = '-74.0059728'
-            getWeather();
+            cityState = 'New York';
+            searchLocation();
         } else {
             cityState = searchHistory[0];
             searchLocation();
+            console.log(cityState, searchHistory)
         };
 
     } else {
@@ -383,7 +392,7 @@ $('#locationPin').mouseout(function () {
     $('#locationPinLabel').css('opacity', '0');
 });
 
-// fetch api keys
+// fetch api keys and geolocation
 fetch('/apikeys')
     .then(function (response) {
         return response.json();
@@ -391,13 +400,6 @@ fetch('/apikeys')
     .then(function (data) {
         googleApiKey = data[0].googleApiKey;
         weatherApiKey = data[0].weatherApiKey;
-
-        // set location to New York if there's no search history or geolocation
-        if (!searchHistory) {
-            lat = '40.7127753';
-            lng = '-74.0059728'
-            getWeather();
-        };
 
         currentLocation();
     })
