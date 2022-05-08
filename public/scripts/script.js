@@ -312,8 +312,8 @@ function hideSearch() {
 
     if (window.innerWidth < 1400) {
         $('#citySelect').css('transform', 'translateY(-100%)');
-        $('#today').css('top', '14vh');
-        $('#today').css('height', '66vh');
+        $('#today').css('top', '10vh');
+        $('#today').css('height', '70vh');
     } else {
         $('#citySelect').css('transform', 'translateX(-100%)');
         $('#today').css('left', '0%');
@@ -346,8 +346,8 @@ $('#showButton').click(function (event) {
 
     if (window.innerWidth < 1400) {
         $('#citySelect').css('transform', 'translateY(0%)');
-        $('#today').css('top', '34vh');
-        $('#today').css('height', '46vh');
+        $('#today').css('top', '30vh');
+        $('#today').css('height', '50vh');
     } else {
         $('#citySelect').css('transform', 'translateX(0%)');
         $('#today').css('left', '25%');

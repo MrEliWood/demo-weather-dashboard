@@ -630,16 +630,16 @@ button:hover {
 
     #city {
         width: 90%;
-        left: 30px;
+        left: 60px;
         top: 70px;
     }
 
     #citySelect {
-        position: absolute;
-        height: 34vh;
+        justify-content: flex-end;
+        height: 30vh;
         width: 100%;
         background: var(--light);
-        padding: 160px 30px 15px 30px;
+        padding: 120px 60px 0px 60px;
         box-shadow: 0px 0px 25px var(--shadow);
         animation: slideDown 1s 3.5s backwards;
     }
@@ -656,17 +656,24 @@ button:hover {
         min-width: 49%;
     }
 
+    #searchButton {
+        
+    }
+
     button {
         margin: 15px 0px 0px 0px;
     }
 
     #reset {
-        margin: 15px auto 0px auto;
+        display: none;
+    }
+
+    #searchFooter {
+        margin: 20px;
     }
 
     #openWeatherCredit {
-        position: absolute;
-        top: 30vh;
+        position: static;
         justify-self: center;
         align-self: center;
         margin: 0px;
@@ -708,14 +715,14 @@ button:hover {
     #today {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         position: absolute;
-        top: 34vh;
+        top: 30vh;
         left: 0;
         justify-self: flex-start;
-        padding: 30px 30px 30px 30px;
+        padding: 60px;
         color: var(--light);
-        height: 46vh;
-        flex-grow: 1;
+        height: 50vh;
         width: 100%;
     }
 
@@ -766,6 +773,10 @@ button:hover {
         margin-left: 60px;
     }
 
+    #todayFooter {
+        height: auto;
+    }
+
     #uvIndex {
         margin: 30px 0px 0px 0px;
     }
@@ -790,8 +801,8 @@ button:hover {
     }
 
     .dayCard {
-        padding: 30px 30px;
-        height: 25vh;
+        padding: 60px;
+        height: 22vh;
         width: 100%;
     }
 
@@ -805,35 +816,35 @@ button:hover {
         animation: slideUp 2s 4.5s backwards;
         position: absolute;
         left: 0%;
-        bottom: -5vh;
+        bottom: -2vh;
     }
 
     #day2 {
         animation: slideUp 2s 4.75s backwards;
         position: absolute;
         left: 0%;
-        bottom: -25vh;
+        bottom: -22vh;
     }
 
     #day3 {
         animation: slideUp 2s 5s backwards;
         position: absolute;
         left: 0%;
-        bottom: -45vh;
+        bottom: -42vh;
     }
 
     #day4 {
         animation: slideUp 2s 5.25s backwards;
         position: absolute;
         left: 0%;
-        bottom: -65vh;
+        bottom: -62vh;
     }
 
     #day5 {
         animation: slideUp 2s 5.5s backwards;
         position: absolute;
         left: 0%;
-        bottom: -85vh;
+        bottom: -82vh;
     }
 
     #day1:hover {
@@ -884,16 +895,18 @@ button:hover {
 @media screen and (max-width: 768px) {
 
     * {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     #city {
-        top: 20px;
-        left: 20px;
+        width: 90%;
+        left: 30px;
+        top: 50px;
     }
 
     #citySelect {
-        padding: 90px 20px 10px 20px;
+        padding: 120px 30px 0px 30px;
+
     }
 
     #searchInputContainer {
@@ -917,12 +930,16 @@ button:hover {
         margin-top: 10px;
     }
 
-    #reset {
-        margin: 10px auto 0px auto;
+    #today {
+        padding: 30px;
     }
 
     #todayBody {
         justify-content: space-between;
+    }
+
+    .dayCard {
+        padding: 30px;
     }
 
     #today img,
@@ -933,6 +950,7 @@ button:hover {
     }
 
     .temp {
+        font-size: 4.3em;
         margin: 10px 0px 0px auto;
     }
 
@@ -944,11 +962,6 @@ button:hover {
     .humidity {
         margin-top: 10px;
         margin-left: auto;
-    }
-
-    #uvIndex {
-        justify-content: flex-end;
-        margin: auto auto 0px 0px;
     }
 
 }
