@@ -47,7 +47,7 @@ if (!searchHistory) {
 // save search to local storage
 function saveSearch() {
 
-    if (searchHistory) {
+    if (searchHistory && window.innerWidth > 1400) {
 
         searchHistory = searchHistory.filter(function (value) {
             return value !== cityState;
@@ -70,7 +70,7 @@ function saveSearch() {
 
         };
 
-    } else {
+    } else if (window.innerWidth > 1400) {
 
         searchHistory = [cityState];
         localStorage.setItem('WD Search History', JSON.stringify([cityState]));
