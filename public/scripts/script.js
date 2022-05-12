@@ -106,6 +106,8 @@ function setBackground(section, container, description) {
 
 function getWeather() {
 
+    console.log('weather gotten')
+
     var weatherQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=imperial&appid=${weatherApiKey}`;
 
     fetch(weatherQuery)
