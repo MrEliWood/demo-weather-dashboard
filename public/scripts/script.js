@@ -83,25 +83,82 @@ function saveSearch() {
 
 // set background images
 function setBackground(section, container, description) {
-    if (description == 'clear sky') {
-        $(container).attr('class', `${section} clearSky`)
-    } else if (description == 'mist') {
+
+    // rain
+    if (description == 'light rain' || description == 'moderate rain' || description == 'heavy intensity rain' || description == 'very heavy rain' || description == 'extreme rain' || description == 'freezing rain' || description == 'light intensity shower rain' || description == 'shower rain' || description == 'heavy intensity shower rain' || description == 'ragged shower rain') {
+        $(container).attr('class', `${section} rain`)
+    }
+
+    // drizzle
+    else if (description == 'light intensity drizzle' || description == 'drizzle' || description == 'heavy intensity drizzle' || description == 'light intensity drizzle rain' || description == 'drizzle rain' || description == 'heavy intensity drizzle rain' || description == 'shower rain and drizzle' || description == 'heavy shower rain and drizzle' || description == 'shower drizzle') {
+        $(container).attr('class', `${section} drizzle`)
+    }
+
+    // thunderstorm
+    else if (description == 'thunderstorm with light rain' || description == 'thunderstorm with rain' || description == 'thunderstorm with heavy rain' || description == 'light thunderstorm' || description == 'thunderstorm' || description == 'heavy thunderstorm' || description == 'ragged thunderstorm' || description == 'thunderstorm with light drizzle' || description == 'thunderstorm with drizzle' || description == 'thunderstorm with heavy drizzle') {
+        $(container).attr('class', `${section} thunderstorm`)
+    }
+
+    // snow
+    else if (description == 'light snow' || description == 'Snow' || description == 'Heavy snow') {
+        $(container).attr('class', `${section} snow`)
+    }
+
+    // sleet
+    else if (description == 'Sleet' || description == 'Light shower sleet' || description == 'Shower sleet' || description == 'Light rain and snow' || description == 'Rain and snow') {
+        $(container).attr('class', `${section} sleet`)
+    }
+
+    // shower snow
+    else if (description == 'Light shower snow' || description == 'Shower snow' || description == 'Heavy shower snow') {
+        $(container).attr('class', `${section} showerSnow`)
+    }
+
+    // atmosphere
+    else if (description == 'mist') {
         $(container).attr('class', `${section} mist`)
-    } else if (description == 'few clouds') {
+    }
+    else if (description == 'Smoke') {
+        $(container).attr('class', `${section} smoke`)
+    }
+    else if (description == 'Haze') {
+        $(container).attr('class', `${section} haze`)
+    }
+    else if (description == 'sand/ dust whirls' || description == 'sand' || description == 'dust') {
+        $(container).attr('class', `${section} sand`)
+    }
+    else if (description == 'fog') {
+        $(container).attr('class', `${section} fog`)
+    }
+    else if (description == 'volcanic ash') {
+        $(container).attr('class', `${section} ash`)
+    }
+    else if (description == 'squalls') {
+        $(container).attr('class', `${section} squalls`)
+    }
+    else if (description == 'tornado') {
+        $(container).attr('class', `${section} tornado`)
+    }
+
+    // clear sky
+    else if (description == 'clear sky') {
+        $(container).attr('class', `${section} clearSky`)
+    }
+    
+    // clouds
+    else if (description == 'few clouds') {
         $(container).attr('class', `${section} fewClouds`)
-    } else if (description == 'scattered clouds') {
+    }
+    else if (description == 'scattered clouds') {
         $(container).attr('class', `${section} scatteredClouds`)
-    } else if (description == 'broken clouds') {
+    }
+    else if (description == 'broken clouds') {
         $(container).attr('class', `${section} brokenClouds`)
-    } else if (description == 'overcast clouds') {
+    }
+    else if (description == 'overcast clouds') {
         $(container).attr('class', `${section} overcastClouds`)
-    } else if (description == 'light intensity drizzle') {
-        $(container).attr('class', `${section} lightIntensityDrizzle`)
-    } else if (description == 'light rain') {
-        $(container).attr('class', `${section} lightRain`)
-    } else if (description == 'moderate rain') {
-        $(container).attr('class', `${section} moderateRain`)
-    };
+    }
+
 };
 
 function getWeather() {

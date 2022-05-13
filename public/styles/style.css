@@ -98,9 +98,44 @@
 }
 
 /* background photos */
-.clearSky {
+.rain {
     background: linear-gradient(120deg, var(--accent2), var(--accent));
-    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/clear-sky.jpg');
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/rain.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.drizzle {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/drizzle.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.thunderstorm {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/thunderstorm.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.snow {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/snow.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sleet {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/sleet.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.showerSnow {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/shower-snow.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -108,6 +143,62 @@
 .mist {
     background: linear-gradient(120deg, var(--accent2), var(--accent));
     background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/mist.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.smoke {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/smoke.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.haze {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/haze.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sand {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/sand.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.fog {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/fog.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ash {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/ash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.squalls {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/squalls.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tornado {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/tornado.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.clearSky {
+    background: linear-gradient(120deg, var(--accent2), var(--accent));
+    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/clear-sky.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -140,27 +231,6 @@
     background-size: cover;
 }
 
-.lightIntensityDrizzle {
-    background: linear-gradient(120deg, var(--accent2), var(--accent));
-    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/light-intensity-drizzle.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.lightRain {
-    background: linear-gradient(120deg, var(--accent2), var(--accent));
-    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/light-rain.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.moderateRain {
-    background: linear-gradient(120deg, var(--accent2), var(--accent));
-    background-image: linear-gradient(var(--overlay), var(--overlay)), url('../assets/images/moderate-rain.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 /* page styles */
 ::placeholder {
     color: var(--light2);
@@ -176,6 +246,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
 }
 
 main {
