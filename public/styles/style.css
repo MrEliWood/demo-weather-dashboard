@@ -728,7 +728,9 @@ button:hover {
     }
 
     #searchButton {
-        
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
     }
 
     button {
@@ -966,7 +968,7 @@ button:hover {
 @media screen and (max-width: 768px) {
 
     * {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     #city {
