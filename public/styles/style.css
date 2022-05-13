@@ -262,6 +262,7 @@ main {
     top: 30px;
     width: 22%;
     text-transform: capitalize;
+    overflow: hidden;
     color: var(--dark);
     z-index: 1;
     animation: titleIntro 1s 3.5s backwards;
@@ -702,12 +703,12 @@ button:hover {
     #city {
         width: 90%;
         left: 60px;
-        top: 70px;
+        top: 120px;
     }
 
     #citySelect {
         justify-content: flex-end;
-        height: 40vh;
+        height: 30vh;
         width: 100%;
         background: var(--light);
         padding: 120px 60px 0px 60px;
@@ -728,9 +729,7 @@ button:hover {
     }
 
     #searchButton {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
+        display: none;
     }
 
     button {
@@ -761,7 +760,7 @@ button:hover {
         left: 0;
         z-index: 100;
         border-radius: 0px;
-        height: 10vh;
+        height: 6vh;
         width: 100%;
         margin-top: 0px;
         animation: slideDown 1s 3.5s backwards;
@@ -778,7 +777,7 @@ button:hover {
         left: 0;
         z-index: 100;
         border-radius: 0px;
-        height: 10vh;
+        height: 6vh;
         width: 100%;
         margin-top: 0px;
     }
@@ -792,12 +791,12 @@ button:hover {
         flex-direction: column;
         justify-content: space-between;
         position: absolute;
-        top: 40vh;
+        top: 30vh;
         left: 0;
         justify-self: flex-start;
         padding: 60px;
         color: var(--light);
-        height: 40vh;
+        height: 50vh;
         width: 100%;
     }
 
@@ -976,7 +975,7 @@ button:hover {
     #city {
         width: 90%;
         left: 30px;
-        top: 50px;
+        top: 70px;
     }
 
     #citySelect {
@@ -990,10 +989,6 @@ button:hover {
 
     #locationPin {
         height: 30px;
-    }
-
-    #searchButton {
-        margin-top: 10px;
     }
 
     #searchHistory {

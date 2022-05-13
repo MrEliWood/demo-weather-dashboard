@@ -244,6 +244,20 @@ function getWeather() {
 
         });
 
+    let countDown = 900;
+
+    minusInterval = setInterval(function() {
+        countDown--;
+
+        console.log(countDown)
+        
+        if (countDown === 0) {
+            clearInterval(minusInterval);
+            console.log('IT WORKED!')
+        }
+
+    }, 1000);
+
 };
 
 // get location from user search
@@ -380,8 +394,8 @@ function hideSearch() {
 
     if (window.innerWidth < 1400) {
         $('#citySelect').css('transform', 'translateY(-100%)');
-        $('#today').css('top', '10vh');
-        $('#today').css('height', '70vh');
+        $('#today').css('top', '15vh');
+        $('#today').css('height', '65vh');
     } else {
         $('#citySelect').css('transform', 'translateX(-100%)');
         $('#today').css('left', '0%');
