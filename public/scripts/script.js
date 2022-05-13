@@ -163,8 +163,6 @@ function setBackground(section, container, description) {
 
 function getWeather() {
 
-    console.log('weather gotten')
-
     var weatherQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=imperial&appid=${weatherApiKey}`;
 
     fetch(weatherQuery)
@@ -244,16 +242,15 @@ function getWeather() {
 
         });
 
-    let countDown = 900;
+    // refresh data after 15 minutes on the page
+    var countDown = 900;
 
     minusInterval = setInterval(function() {
         countDown--;
-
-        console.log(countDown)
         
         if (countDown === 0) {
             clearInterval(minusInterval);
-            console.log('IT WORKED!')
+            getWeather();
         }
 
     }, 1000);
