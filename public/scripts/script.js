@@ -100,17 +100,17 @@ function setBackground(section, container, description) {
     }
 
     // snow
-    else if (description == 'light snow' || description == 'Snow' || description == 'Heavy snow') {
+    else if (description == 'light snow' || description == 'snow' || description == 'Heavy snow') {
         $(container).attr('class', `${section} snow`)
     }
 
     // sleet
-    else if (description == 'Sleet' || description == 'Light shower sleet' || description == 'Shower sleet' || description == 'Light rain and snow' || description == 'Rain and snow') {
+    else if (description == 'sleet' || description == 'light shower sleet' || description == 'shower sleet' || description == 'light rain and snow' || description == 'rain and snow') {
         $(container).attr('class', `${section} sleet`)
     }
 
     // shower snow
-    else if (description == 'Light shower snow' || description == 'Shower snow' || description == 'Heavy shower snow') {
+    else if (description == 'light shower snow' || description == 'shower snow' || description == 'heavy shower snow') {
         $(container).attr('class', `${section} showerSnow`)
     }
 
@@ -118,10 +118,10 @@ function setBackground(section, container, description) {
     else if (description == 'mist') {
         $(container).attr('class', `${section} mist`)
     }
-    else if (description == 'Smoke') {
+    else if (description == 'smoke') {
         $(container).attr('class', `${section} smoke`)
     }
-    else if (description == 'Haze') {
+    else if (description == 'haze') {
         $(container).attr('class', `${section} haze`)
     }
     else if (description == 'sand/ dust whirls' || description == 'sand' || description == 'dust') {
@@ -211,7 +211,7 @@ function getWeather() {
             $('#uvStatus').text(uvStatus);
 
             // set body background
-            setBackground('', 'body', currentDescription);
+            setBackground('', 'body', currentDescription.toLowerCase());
 
             for (let i = 1; i < 6; i++) {
 
@@ -230,7 +230,7 @@ function getWeather() {
                 $(`#day${i}Icon`).attr({ 'src': forecastIconURL, 'alt': forecastDescription });
 
                 // set forecast background
-                setBackground('dayCard', `#day${i}`, forecastDescription);
+                setBackground('dayCard', `#day${i}`, forecastDescription.toLowerCase());
 
                 // set weekday
                 if (i > 1) {
