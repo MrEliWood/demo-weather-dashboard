@@ -1,3 +1,5 @@
+// require('dotenv').config();
+
 // define variables
 var searchButton = $('#searchButton');
 var clearButton = $('#reset');
@@ -12,8 +14,8 @@ var cityState = 'New York, NY';
 
 var userSearch;
 
-var googleApiKey;
-var weatherApiKey;
+var googleApiKey = process.env.GOOGLE_API_KEY;
+var weatherApiKey = process.env.WEATHER_API_KEY;
 
 // remember search panel position
 if (searchPanelStatus == 'hidden') {
@@ -404,16 +406,16 @@ $('#locationPin').mouseout(function () {
 });
 
 // fetch api keys and geolocation
-fetch('/apikeys')
-	.then(function (response) {
-		return response.json();
-	})
-	.then(function (data) {
-		googleApiKey = data[0].googleApiKey;
-		weatherApiKey = data[0].weatherApiKey;
+// fetch('/apikeys')
+// 	.then(function (response) {
+// 		return response.json();
+// 	})
+// 	.then(function (data) {
+// 		googleApiKey = data[0].googleApiKey;
+// 		weatherApiKey = data[0].weatherApiKey;
 
-		currentLocation();
-	})
-	.catch(function () {
-		alert('Unable to load weather data.');
-	});
+// 		currentLocation();
+// 	})
+// 	.catch(function () {
+// 		alert('Unable to load weather data.');
+// 	});
