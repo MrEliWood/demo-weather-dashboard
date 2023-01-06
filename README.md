@@ -15,4 +15,4 @@ Weather data is provided by https://openweathermap.org/.
 View a live demo of the weather dashboard here:<br>
 https://custom-weather-dashboard.herokuapp.com
 
-![Screenshot of weather dashboard](./assets/images/Screen%20Shot%202022-04-11%20at%209.39.30%20PM.png)
+![Screenshot of weather dashboard](./assets/screenshots/weather-desktop.png)
