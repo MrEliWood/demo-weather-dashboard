@@ -1,204 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://momentjs.com/downloads/moment.js"></script>
-
-    <link rel="stylesheet" href="./styles/reset.css">
-    <link rel="stylesheet" href="./styles/style.css">
-
-</head>
-
-<body class="fewClouds">
-
-    <h1 id="city">New York, NY</h1>
-
-    <main>
-
-        <div id="citySelect">
-
-            <form id="citySearch" name="search" method="post" action="#">
-
-                <div id="searchLabels">
-                    <h4>Search for a city:</h4>
-                    <h4 id="locationPinLabel">Current Location</h4>
-                </div>
-
-                <div id="searchInputContainer">
-                    <input id="searchInput" type="text" placeholder="New York" autofocus>
-                    <img src="./assets/icons/icons.001.png" alt="Use My Current Location" id="locationPin">
-                </div>
-
-                <input id="searchButton" type="submit" value="Search" inputmode="search" enterkeyhint="search">
-
-            </form>
-
-            <div id="searchHistory"></div>
-
-            <button id="reset">Clear Recent Searches</button>
-
-            <div id="searchFooter">
-
-                <p id="openWeatherCredit">Weather data provided by openweathermap.org</p>
-
-            </div>
-
-        </div>
-
-        <button id="showButton"><!-- content in stylesheet --></button>
-        <button id="hideButton"><!-- content in stylesheet --></button>
-
-        <div id="today">
-
-            <h4>Today</h4>
-
-            <div id="todayBody">
-
-                <div id="todayHeader">
-
-                    <p class="description">Few Clouds</p>
-                    <img src="" alt="">
-
-                </div>
-
-                <p class="temp" id="todayTempNum">72°</p>
-                <p class="wind"><span class="dayStat" id="todayWindNum">5</span> mph<br>Wind Speed</p>
-                <p class="humidity"><span class="dayStat" id="todayHumidityNum">40</span> %<br>Humidity</p>
-
-            </div>
-
-            <div id="todayFooter">
-
-                <p id="uvIndex">UV Index<span id="uv">1.5</span><span id="uvStatus"></span></p>
-
-            </div>
-
-        </div>
-
-        <div id="forecast">
-
-            <div class="dayCard clearSky" id="day5">
-
-                <h4 class="date" id="day5Date">And the Next</h4>
-
-                <div class="dayCardBody">
-
-                    <div class="dayCardHeader">
-
-                        <p class="description" id="day5Description">Clear Sky</p>
-                        <img id="day5Icon" src="" alt="">
-
-                    </div>
-
-
-                    <p class="temp" id="day5TempNum">72°</p>
-                    <p class="wind"><span class="dayStat" id="day5WindNum">5</span> mph<br>Wind Speed</p>
-                    <p class="humidity"><span class="dayStat" id="day5HumidityNum">40</span> %<br>Humidity</p>
-
-                </div>
-
-            </div>
-
-            <div class="dayCard moderateRain" id="day4">
-
-                <h4 class="date" id="day4Date">And the Next</h4>
-
-                <div class="dayCardBody">
-
-                    <div class="dayCardHeader">
-
-                        <p class="description" id="day4Description">Moderate Rain</p>
-                        <img id="day4Icon" src="" alt="">
-
-                    </div>
-
-
-                    <p class="temp" id="day4TempNum">72°</p>
-                    <p class="wind"><span class="dayStat" id="day4WindNum">5</span> mph<br>Wind Speed</p>
-                    <p class="humidity"><span class="dayStat" id="day4HumidityNum">40</span> %<br>Humidity</p>
-
-                </div>
-
-            </div>
-
-            <div class="dayCard lightIntensityDrizzle" id="day3">
-
-                <h4 class="date" id="day3Date">And the Next</h4>
-
-                <div class="dayCardBody">
-
-                    <div class="dayCardHeader">
-
-                        <p class="description" id="day3Description">Light Intensity Drizzle</p>
-                        <img id="day3Icon" src="" alt="">
-
-                    </div>
-
-
-                    <p class="temp" id="day3TempNum">72°</p>
-                    <p class="wind"><span class="dayStat" id="day3WindNum">5</span> mph<br>Wind Speed</p>
-                    <p class="humidity"><span class="dayStat" id="day3HumidityNum">40</span> %<br>Humidity</p>
-
-                </div>
-
-            </div>
-
-            <div class="dayCard brokenClouds" id="day2">
-
-                <h4 class="date" id="day2Date">The Next Day</h4>
-
-                <div class="dayCardBody">
-
-                    <div class="dayCardHeader">
-
-                        <p class="description" id="day2Description">Broken Clouds</p>
-                        <img id="day2Icon" src="" alt="">
-
-                    </div>
-
-
-                    <p class="temp" id="day2TempNum">72°</p>
-                    <p class="wind"><span class="dayStat" id="day2WindNum">5</span> mph<br>Wind Speed</p>
-                    <p class="humidity"><span class="dayStat" id="day2HumidityNum">40</span> %<br>Humidity</p>
-
-                </div>
-
-            </div>
-
-            <div class="dayCard mist" id="day1">
-
-                <h4 class="date" id="day1Date">Tomorrow</h4>
-
-                <div class="dayCardBody">
-
-                    <div class="dayCardHeader">
-
-                        <p class="description" id="day1Description">Mist</p>
-                        <img id="day1Icon" src="" alt="">
-
-                    </div>
-
-
-                    <p class="temp" id="day1TempNum">72°</p>
-                    <p class="wind"><span class="dayStat" id="day1WindNum">5</span> mph<br>Wind Speed</p>
-                    <p class="humidity"><span class="dayStat" id="day1HumidityNum">40</span> %<br>Humidity</p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <script src="./scripts/script.js"></script>
-
-</body>
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weather Dashboard</title>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://momentjs.com/downloads/moment.js"></script>
+
+		<link rel="stylesheet" href="./styles/reset.css" />
+		<link rel="stylesheet" href="./styles/style.css" />
+	</head>
+
+	<body class="fewClouds">
+		<h1 id="city">New York, NY</h1>
+
+		<main>
+			<div id="citySelect">
+				<form id="citySearch" name="search" method="post" action="#">
+					<div id="searchLabels">
+						<h4>Search for a city:</h4>
+						<h4 id="locationPinLabel">Current Location</h4>
+					</div>
+
+					<div id="searchInputContainer">
+						<input id="searchInput" type="text" placeholder="New York" autofocus />
+						<img src="./assets/icons/icons.001.png" alt="Use My Current Location" id="locationPin" />
+					</div>
+
+					<input id="searchButton" type="submit" value="Search" inputmode="search" enterkeyhint="search" />
+				</form>
+
+				<div id="searchHistory"></div>
+
+				<button id="reset">Clear Recent Searches</button>
+
+				<div id="searchFooter">
+					<p id="openWeatherCredit">Weather data provided by openweathermap.org</p>
+				</div>
+			</div>
+
+			<button id="showButton"><!-- content in stylesheet --></button>
+			<button id="hideButton"><!-- content in stylesheet --></button>
+
+			<div id="today">
+				<h4>Today</h4>
+
+				<div id="todayBody">
+					<div id="todayHeader">
+						<p class="description">Few Clouds</p>
+						<img src="" alt="" />
+					</div>
+
+					<p class="temp" id="todayTempNum">72°</p>
+					<p class="wind"><span class="dayStat" id="todayWindNum">5</span> mph<br />Wind Speed</p>
+					<p class="humidity"><span class="dayStat" id="todayHumidityNum">40</span> %<br />Humidity</p>
+				</div>
+
+				<div id="todayFooter">
+					<p id="uvIndex">UV Index<span id="uv">1.5</span><span id="uvStatus"></span></p>
+				</div>
+			</div>
+
+			<div id="forecast">
+				<div class="dayCard clearSky" id="day5">
+					<h4 class="date" id="day5Date">And the Next</h4>
+
+					<div class="dayCardBody">
+						<div class="dayCardHeader">
+							<p class="description" id="day5Description">Clear Sky</p>
+							<img id="day5Icon" src="" alt="" />
+						</div>
+
+						<p class="temp" id="day5TempNum">72°</p>
+						<p class="wind"><span class="dayStat" id="day5WindNum">5</span> mph<br />Wind Speed</p>
+						<p class="humidity"><span class="dayStat" id="day5HumidityNum">40</span> %<br />Humidity</p>
+					</div>
+				</div>
+
+				<div class="dayCard rain" id="day4">
+					<h4 class="date" id="day4Date">And the Next</h4>
+
+					<div class="dayCardBody">
+						<div class="dayCardHeader">
+							<p class="description" id="day4Description">Moderate Rain</p>
+							<img id="day4Icon" src="" alt="" />
+						</div>
+
+						<p class="temp" id="day4TempNum">72°</p>
+						<p class="wind"><span class="dayStat" id="day4WindNum">5</span> mph<br />Wind Speed</p>
+						<p class="humidity"><span class="dayStat" id="day4HumidityNum">40</span> %<br />Humidity</p>
+					</div>
+				</div>
+
+				<div class="dayCard drizzle" id="day3">
+					<h4 class="date" id="day3Date">And the Next</h4>
+
+					<div class="dayCardBody">
+						<div class="dayCardHeader">
+							<p class="description" id="day3Description">Light Intensity Drizzle</p>
+							<img id="day3Icon" src="" alt="" />
+						</div>
+
+						<p class="temp" id="day3TempNum">72°</p>
+						<p class="wind"><span class="dayStat" id="day3WindNum">5</span> mph<br />Wind Speed</p>
+						<p class="humidity"><span class="dayStat" id="day3HumidityNum">40</span> %<br />Humidity</p>
+					</div>
+				</div>
+
+				<div class="dayCard brokenClouds" id="day2">
+					<h4 class="date" id="day2Date">The Next Day</h4>
+
+					<div class="dayCardBody">
+						<div class="dayCardHeader">
+							<p class="description" id="day2Description">Broken Clouds</p>
+							<img id="day2Icon" src="" alt="" />
+						</div>
+
+						<p class="temp" id="day2TempNum">72°</p>
+						<p class="wind"><span class="dayStat" id="day2WindNum">5</span> mph<br />Wind Speed</p>
+						<p class="humidity"><span class="dayStat" id="day2HumidityNum">40</span> %<br />Humidity</p>
+					</div>
+				</div>
+
+				<div class="dayCard mist" id="day1">
+					<h4 class="date" id="day1Date">Tomorrow</h4>
+
+					<div class="dayCardBody">
+						<div class="dayCardHeader">
+							<p class="description" id="day1Description">Mist</p>
+							<img id="day1Icon" src="" alt="" />
+						</div>
+
+						<p class="temp" id="day1TempNum">72°</p>
+						<p class="wind"><span class="dayStat" id="day1WindNum">5</span> mph<br />Wind Speed</p>
+						<p class="humidity"><span class="dayStat" id="day1HumidityNum">40</span> %<br />Humidity</p>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script src="./scripts/script.js"></script>
+	</body>
 </html>
