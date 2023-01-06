@@ -1,4 +1,4 @@
-# homework-weather-dashboard
+# demo-weather-dashboard
 
 The weather dashboard is a simple display of the current weather and a 5-day forecast.
 
