@@ -1,5 +1,3 @@
-// require('dotenv').config();
-
 // define variables
 var searchButton = $('#searchButton');
 var clearButton = $('#reset');
@@ -32,7 +30,7 @@ function displaySearches() {
 	} else {
 		cityState = searchHistory[0];
 		for (let i = 0; i < searchHistory.length; i++) {
-			searchDisplay.append(`<button>${searchHistory[i]}</button>`);
+			searchDisplay.append(`<button>${searchHistory[i].replace(/, undefined/g, '')}</button>`);
 		}
 	}
 }
@@ -157,7 +155,7 @@ function getWeather() {
 			var uv = data.current.uvi;
 			var uvStatus;
 
-			$('#city').text(cityState);
+			$('#city').text(cityState.replace(/, undefined/g, ''));
 			$('#todayHeader').children('.description').text(currentDescription);
 			$('#todayHeader').children('img').attr({ src: currentIconURL, alt: currentDescription });
 			$('#todayTempNum').text(`${currentTemp}°`);
