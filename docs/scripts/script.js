@@ -221,7 +221,7 @@ function getWeather() {
 
 // get location from user search
 function searchLocation() {
-	var addressQuery = `http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${weatherApiKey}`;
+	var addressQuery = `https://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${weatherApiKey}`;
 
 	fetch(addressQuery)
 		.then(function (response) {
@@ -247,7 +247,7 @@ function currentLocation() {
 		lon = position.coords.longitude;
 
 		// get city from lat/lon
-		var coordQuery = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${weatherApiKey}`;
+		var coordQuery = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${weatherApiKey}`;
 
 		fetch(coordQuery)
 			.then(function (response) {
