@@ -9,13 +9,12 @@ var searchHistory = JSON.parse(localStorage.getItem('WD Search History'));
 var searchPanelStatus = JSON.parse(localStorage.getItem('WD Search Panel Status'));
 
 var lat;
-var lng;
-var cityState = 'New York, NY';
+var lon;
+var cityState = 'New York';
 
 var userSearch;
 
-var googleApiKey = process.env.GOOGLE_API_KEY;
-var weatherApiKey = process.env.WEATHER_API_KEY;
+var weatherApiKey = '4cbbd8edff2f69559a34c2c07e801771';
 
 // remember search panel position
 if (searchPanelStatus == 'hidden') {
@@ -31,6 +30,7 @@ function displaySearches() {
 	if (!searchHistory) {
 		return;
 	} else {
+		cityState = searchHistory[0];
 		for (let i = 0; i < searchHistory.length; i++) {
 			searchDisplay.append(`<button>${searchHistory[i]}</button>`);
 		}
@@ -140,7 +140,7 @@ function setBackground(section, container, description) {
 }
 
 function getWeather() {
-	var weatherQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=imperial&appid=${weatherApiKey}`;
+	var weatherQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${weatherApiKey}`;
 
 	fetch(weatherQuery)
 		.then(function (response) {
@@ -216,34 +216,24 @@ function getWeather() {
 		});
 
 	// refresh data after 15 minutes on the page
-	var countDown = 900;
-
-	minusInterval = setInterval(function () {
-		countDown--;
-
-		if (countDown === 0) {
-			clearInterval(minusInterval);
-			getWeather();
-		}
-	}, 1000);
+	setInterval(getWeather, 900000);
 }
 
 // get location from user search
 function searchLocation() {
-	var encodedAddress = encodeURIComponent(userSearch).replace(/%20/g, '+');
-	var addressQuery = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${googleApiKey}`;
+	var addressQuery = `http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=1&appid=${weatherApiKey}`;
 
 	fetch(addressQuery)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (data) {
-			city = data.results[0].address_components[0].short_name;
-			state = data.results[0].address_components[2].short_name;
-			lat = data.results[0].geometry.location.lat;
-			lng = data.results[0].geometry.location.lng;
-			// cityState = `${city}, ${state}`;
-			cityState = data.results[0].formatted_address.replace(', USA', '');
+			console.log('search', data);
+			city = data[0].name;
+			state = data[0].state;
+			lat = data[0].lat;
+			lon = data[0].lon;
+			cityState = `${city}, ${state}`;
 
 			getWeather();
 			saveSearch();
@@ -254,19 +244,20 @@ function searchLocation() {
 function currentLocation() {
 	function success(position) {
 		lat = position.coords.latitude;
-		lng = position.coords.longitude;
+		lon = position.coords.longitude;
 
-		// get city from lat/lng
-		var coordQuery = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${googleApiKey}`;
+		// get city from lat/lon
+		var coordQuery = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${weatherApiKey}`;
+
 		fetch(coordQuery)
 			.then(function (response) {
 				return response.json();
 			})
 			.then(function (data) {
-				cityState = data.results[9].formatted_address.replace(', USA', '');
+				cityState = `${data[0].name}, ${data[0].state}`;
 
-				saveSearch();
 				getWeather();
+				saveSearch();
 			});
 	}
 
@@ -292,7 +283,6 @@ function currentLocation() {
 		} else {
 			cityState = searchHistory[0];
 			searchLocation();
-			console.log(cityState, searchHistory);
 		}
 	} else {
 		navigator.geolocation.getCurrentPosition(success, error);
@@ -405,17 +395,4 @@ $('#locationPin').mouseout(function () {
 	$('#locationPinLabel').css('opacity', '0');
 });
 
-// fetch api keys and geolocation
-// fetch('/apikeys')
-// 	.then(function (response) {
-// 		return response.json();
-// 	})
-// 	.then(function (data) {
-// 		googleApiKey = data[0].googleApiKey;
-// 		weatherApiKey = data[0].weatherApiKey;
-
-// 		currentLocation();
-// 	})
-// 	.catch(function () {
-// 		alert('Unable to load weather data.');
-// 	});
+currentLocation();
